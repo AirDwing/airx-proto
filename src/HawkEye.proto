@@ -15,7 +15,7 @@ message VehicleData{
     BatteryInfo BatteryInfo=8;//电池信息
     ControllerInfo ControllerInfo=9;//控制器信息
     AttitudeInfo AttitudeInfo=10;//飞机姿态
-    AtmosphericSensorS AtmosphericSensorS=11;//大气传感器信息
+    AtmosphericSensorS AtmosphericSensorS=100;//大气传感器信息
 }
 message LocationCoordinateInfo{
     double Latitude=1; //维度
