@@ -1,0 +1,48 @@
+syntax = "proto3";
+import "Module/AtmosphericSensor.proto";
+
+option csharp_namespace = "AirDwing.HawkEye";
+
+
+message VehicleData{
+    string Sn=1; //序列号
+    bool IsFlying=2; //是否飞行
+    float VelocityX=3;//载具在x方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+    float VelocityY=4;//载具y方向的速度，使用N-E-D (North-East-Down)，以米为单位
+    float VelocityZ=5;//载具Z方向的速度，使用N-E-D (North-East-Down)，以米为单位
+    LocationCoordinateInfo LocationCoordinateInfo=6;//飞机位置信息
+    CompassInfo CompassInfo=7;//罗盘信息
+    BatteryInfo BatteryInfo=8;//电池信息
+    ControllerInfo ControllerInfo=9;//控制器信息
+    AttitudeInfo AttitudeInfo=10;//飞机姿态
+    AtmosphericSensorS AtmosphericSensorS=11;//大气传感器信息
+}
+message LocationCoordinateInfo{
+    double Latitude=1; //维度
+    double Longitude=2;//经度
+    double Altitude=3; //海拔高度
+    double RelativeAltitude=4; //相对控制器的高度
+    uint32 SatelliteCount=5; //可见卫星数量
+    float LocationAccuracy=6; //精度（误差）
+}
+message CompassInfo{
+    float Heading=1;//罗盘信息，正负180，0为正北方，正为东北，负为西北
+}
+message AttitudeInfo{
+    float Pitch=1;
+    float Roll=2;
+    float Yaw=3;
+}
+message ControllerInfo{
+    BatteryInfo BatteryInfo=1;//控制器电池信息
+    uint32 DataTransSignalPercent=2;
+}
+message BatteryInfo{
+    uint32 FullChargeCapacity=1; //（毫安）电池充满的总电量，可能会下降
+    uint32 ChargeRemaining=2; // （毫安）电池剩余电量
+    uint32 ChargeRemainingInPercent=3;//电池电量百分比
+    bool isBeingCharged=4;//是否正在充电
+    uint32 Voltage=5;//电池当前电压（mV）
+    sint32 Current=6;//电池当前电流（mA），负代表放电，正代表充电
+
+}
