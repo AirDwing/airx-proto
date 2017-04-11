@@ -36,6 +36,7 @@ message AttitudeInfo{
 message ControllerInfo{
     BatteryInfo BatteryInfo=1;//控制器电池信息
     uint32 DataTransSignalPercent=2;
+    LocationCoordinateInfo LocationCoordinateInfo=3;//控制器位置信息
 }
 message BatteryInfo{
     uint32 FullChargeCapacity=1; //（毫安）电池充满的总电量，可能会下降
