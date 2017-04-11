@@ -32,7 +32,7 @@ message CompassInfo{
 message AttitudeInfo{
     float Pitch=1;
     float Roll=2;
-    float Yaw=3;shifouqid
+    float Yaw=3;
 }
 message ControllerInfo{
     BatteryInfo BatteryInfo=1;//控制器电池信息
