@@ -1,5 +1,6 @@
 syntax = "proto3";
 import "Module/AtmosphericSensor.proto";
+import "Google/Protobuf/Timestamp.proto";
 
 option csharp_namespace = "AirDwing.HawkEye";
 
@@ -25,6 +26,7 @@ message LocationCoordinateInfo{
     double RelativeAltitude=4; //相对控制器的高度
     uint32 SatelliteCount=5; //可见卫星数量
     float LocationAccuracy=6; //精度（误差）
+    repeated google.protobuf.Timestamp Time=7;//时间
 }
 message CompassInfo{
     float Heading=1;//罗盘信息，正负180，0为正北方，正为东北，负为西北
