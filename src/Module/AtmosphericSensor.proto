@@ -3,12 +3,12 @@ syntax = "proto3";
 option csharp_namespace = "Vehicle.Core.Model";
 
 message AtmosphericSensorS{
-    uint32 PM25=1;
+    int32 PM25=1;
     double CO=2;
     double SO2=3;
     double NO2=4;
     double O3=5;
     double Temperature=6;
     double Humidity=7;
-    uint32 PM10=8;
+    int32 PM10=8;
 }

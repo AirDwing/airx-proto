@@ -24,7 +24,7 @@ message LocationCoordinateInfo{
     double Longitude=2;//经度
     double Altitude=3; //海拔高度
     double RelativeAltitude=4; //相对控制器的高度
-    uint32 SatelliteCount=5; //可见卫星数量
+    int32 SatelliteCount=5; //可见卫星数量
     float LocationAccuracy=6; //精度（误差）
     google.protobuf.Timestamp Time=7;//时间
 }
@@ -39,14 +39,14 @@ message AttitudeInfo{
 }
 message ControllerInfo{
     BatteryInfo BatteryInfo=1;//控制器电池信息
-    uint32 DataSignalPercent=2;//数传信号 0-100
-    uint32 ImageSignalPercent=3;//图传信号 0-100
+    int32 DataSignalPercent=2;//数传信号 0-100
+    int32 ImageSignalPercent=3;//图传信号 0-100
     LocationCoordinateInfo LocationCoordinateInfo=4;//控制器位置信息
     
 }
 message BatteryInfo{
-    uint32 ChargeRemainingInPercent=1;//电池电量百分比
+    int32 ChargeRemainingInPercent=1;//电池电量百分比
     float Temprature=2; //电池温度 9999为无法读取
-    uint32 Voltage=3;//电池当前电压（mV）9999为无法读取
+    int32 Voltage=3;//电池当前电压（mV）9999为无法读取
     sint32 Current=4;//电池当前电流（mA），负代表放电，正代表充电 9999表示无法读取
 }
