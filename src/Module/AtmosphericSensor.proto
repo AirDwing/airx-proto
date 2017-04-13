@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "AirDwing.HawkEye.Module";
+option csharp_namespace = "Vehicle.Core.Model";
 
 message AtmosphericSensorS{
     uint32 PM25=1;

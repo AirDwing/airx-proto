@@ -2,7 +2,7 @@ syntax = "proto3";
 import "Module/AtmosphericSensor.proto";
 import "Google/Protobuf/Timestamp.proto";
 
-option csharp_namespace = "AirDwing.HawkEye";
+option csharp_namespace = "Vehicle.Core.Model";
 
 
 message VehicleData{
@@ -46,7 +46,7 @@ message ControllerInfo{
 }
 message BatteryInfo{
     uint32 ChargeRemainingInPercent=1;//电池电量百分比
-    float Temprature=2;//电池温度 -9999为无法读取
+    float Temprature=2; //电池温度 9999为无法读取
     uint32 Voltage=3;//电池当前电压（mV）9999为无法读取
     sint32 Current=4;//电池当前电流（mA），负代表放电，正代表充电 9999表示无法读取
 }
