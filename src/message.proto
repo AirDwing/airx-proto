@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "module/data.proto";
+import "module/action.proto";
+
+message Message {
+  string did = 1; // 设备id
+  google.protobuf.Timestamp timestamp = 2; // 上报时间戳
+  Data data = 20;  // 数据报文
+  Action action = 50;  // 动作报文
+}

@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "module/custom.proto";
+
+message Action {
+  repeated Custom custom = 99;
+}
