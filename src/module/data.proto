@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "module/custom.proto";
+import "custom.proto";
 
 message Data {
   repeated Custom custom = 99;
