@@ -1,5 +1,24 @@
 # 报文规范
 
+## 命名规范
+
+- 用简单单词表达,尽量均为一个单词
+- 常用词存在缩写,用缩写
+- 定义常用参数,如温湿度传感器仅需保存`温度`,`湿度`即可
+
+示例:
+
+```proto
+message gnns {
+  double lat = 1; // 维度
+  double lng = 2; // 经度
+  double alt = 3; // 海拔高度
+  int32 satellites = 5; // 可见卫星数量
+  float acc = 6; // 精度（误差）
+  google.protobuf.Timestamp timestamp = 7; // 传感器数据时间
+}
+```
+
 ## 消息基本格式
 
 ```proto
@@ -58,6 +77,32 @@ message Custom { // 自定义数据
     uav: {
       fly: 1
     }
+  }
+}
+```
+
+# 接口请求规范
+
+## 成功状态 200
+
+```js
+{
+  status: 1,
+  data: {
+    // users: []
+    // user: {}
+  } 
+}
+```
+
+## 错误状态 4xx/5xx
+
+```js
+{
+  status: 0,
+  err: {
+    code: 40010,
+    msg: '错误信息'
   }
 }
 ```
