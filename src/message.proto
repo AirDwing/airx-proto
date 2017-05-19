@@ -7,6 +7,5 @@ import "module/action.proto";
 message Message {
   string did = 1; // 设备id,必须
   google.protobuf.Timestamp timestamp = 2; // 上报时间戳,必须
-  Data data = 20;  // 数据报文,可选
-  Action action = 50;  // 动作报文,可选
+  Data data = 20;  // 数据报文
 }

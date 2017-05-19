@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-import "custom.proto";
-
-message Action {
-  repeated Custom custom = 99;
-}
