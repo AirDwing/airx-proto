@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+// 姿态传感器
+message Attitude {
+  float pitch = 1; // 俯仰
+  float roll = 2; // 横滚
+  float yaw = 3; // 偏航
+}

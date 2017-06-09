@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+// 电池传感器
+message Battery {
+  uint32 percent = 1; // 电量
+  bool charging = 2; // 正在充电
+  uint32 voltage = 3; // 电压
+  uint32 current = 4; // 电流
+}

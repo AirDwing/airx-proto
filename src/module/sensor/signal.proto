@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+// 信号传感器
+message Signal {
+  uint32 percent = 1; // 信号强度百分比
+  enum Type {
+    2.4Ghz = 0;
+    5.8Ghz = 1;
+    2G = 2;
+    3G = 3;
+    4G = 4;
+    5G = 5;
+    Other = 6;
+  }
+  Type type = 2; // 连接方式类型
+  string protocal = 3; // 协议
+  int32 rssi = 4; // 接收信号强度
+}

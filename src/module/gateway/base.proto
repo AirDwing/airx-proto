@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+message Gateway {
+  string name = 1; // 网关名称
+}
