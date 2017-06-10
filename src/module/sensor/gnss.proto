@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 // 位置传感器
 message GNSS {
   uint32 satellite = 1; // 卫星数
@@ -7,4 +9,5 @@ message GNSS {
   double longitude = 3;  // 经度
   double amsl = 4; // 海拔高度,单位:m
   double ato = 5; // 相对地面高度,单位:m
+  google.protobuf.Timestamp timestamp = 6; // GPS 时间,可选
 }
