@@ -1513,9 +1513,18 @@ $root.Attitude = (function() {
      * Properties of an Attitude.
      * @exports IAttitude
      * @interface IAttitude
-     * @property {number} [pitch] Attitude pitch
-     * @property {number} [roll] Attitude roll
-     * @property {number} [yaw] Attitude yaw
+     * @property {number} [pitch] 俯仰
+     * desc: 俯仰角，绕x轴，对应欧拉角γ。抬头为正
+     * unit: °
+     * range: [-180, 180]
+     * @property {number} [roll] 横滚
+     * desc: 翻滚角，绕z轴，对应欧拉角β。右滚为正
+     * unit: °
+     * range: [-180, 180]
+     * @property {number} [yaw] 偏航
+     * desc: 方向/航向角，绕y轴，对应欧拉角α。0为指向真北，顺时针旋转增加数值
+     * unit: °
+     * range: [-180, 180]
      */
 
     /**
@@ -1533,7 +1542,10 @@ $root.Attitude = (function() {
     }
 
     /**
-     * Attitude pitch.
+     * 俯仰
+     * desc: 俯仰角，绕x轴，对应欧拉角γ。抬头为正
+     * unit: °
+     * range: [-180, 180]
      * @member {number}pitch
      * @memberof Attitude
      * @instance
@@ -1541,7 +1553,10 @@ $root.Attitude = (function() {
     Attitude.prototype.pitch = 0;
 
     /**
-     * Attitude roll.
+     * 横滚
+     * desc: 翻滚角，绕z轴，对应欧拉角β。右滚为正
+     * unit: °
+     * range: [-180, 180]
      * @member {number}roll
      * @memberof Attitude
      * @instance
@@ -1549,7 +1564,10 @@ $root.Attitude = (function() {
     Attitude.prototype.roll = 0;
 
     /**
-     * Attitude yaw.
+     * 偏航
+     * desc: 方向/航向角，绕y轴，对应欧拉角α。0为指向真北，顺时针旋转增加数值
+     * unit: °
+     * range: [-180, 180]
      * @member {number}yaw
      * @memberof Attitude
      * @instance
@@ -1744,10 +1762,19 @@ $root.Battery = (function() {
      * Properties of a Battery.
      * @exports IBattery
      * @interface IBattery
-     * @property {number} [percent] Battery percent
-     * @property {boolean} [charging] Battery charging
-     * @property {number} [voltage] Battery voltage
-     * @property {number} [current] Battery current
+     * @property {number} [percent] 电量
+     * desc: 电量百分比
+     * unit: %
+     * range: [0, 100]
+     * @property {boolean} [charging] 正在充电
+     * desc: 是否正在充电
+     * @property {number} [voltage] 电压
+     * desc: 电池组总电压
+     * unit: mV
+     * range: [0, +∞)
+     * @property {number} [current] 电流
+     * desc: 正为放电，负为充电
+     * unit: mA
      */
 
     /**
@@ -1765,7 +1792,10 @@ $root.Battery = (function() {
     }
 
     /**
-     * Battery percent.
+     * 电量
+     * desc: 电量百分比
+     * unit: %
+     * range: [0, 100]
      * @member {number}percent
      * @memberof Battery
      * @instance
@@ -1773,7 +1803,8 @@ $root.Battery = (function() {
     Battery.prototype.percent = 0;
 
     /**
-     * Battery charging.
+     * 正在充电
+     * desc: 是否正在充电
      * @member {boolean}charging
      * @memberof Battery
      * @instance
@@ -1781,7 +1812,10 @@ $root.Battery = (function() {
     Battery.prototype.charging = false;
 
     /**
-     * Battery voltage.
+     * 电压
+     * desc: 电池组总电压
+     * unit: mV
+     * range: [0, +∞)
      * @member {number}voltage
      * @memberof Battery
      * @instance
@@ -1789,7 +1823,9 @@ $root.Battery = (function() {
     Battery.prototype.voltage = 0;
 
     /**
-     * Battery current.
+     * 电流
+     * desc: 正为放电，负为充电
+     * unit: mA
      * @member {number}current
      * @memberof Battery
      * @instance
@@ -1827,7 +1863,7 @@ $root.Battery = (function() {
         if (message.voltage != null && message.hasOwnProperty("voltage"))
             writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.voltage);
         if (message.current != null && message.hasOwnProperty("current"))
-            writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.current);
+            writer.uint32(/* id 4, wireType 0 =*/32).int32(message.current);
         return writer;
     };
 
@@ -1872,7 +1908,7 @@ $root.Battery = (function() {
                 message.voltage = reader.uint32();
                 break;
             case 4:
-                message.current = reader.uint32();
+                message.current = reader.int32();
                 break;
             default:
                 reader.skipType(tag & 7);
@@ -1943,7 +1979,7 @@ $root.Battery = (function() {
         if (object.voltage != null)
             message.voltage = object.voltage >>> 0;
         if (object.current != null)
-            message.current = object.current >>> 0;
+            message.current = object.current | 0;
         return message;
     };
 
@@ -1997,8 +2033,10 @@ $root.Dronestatus = (function() {
      * Properties of a Dronestatus.
      * @exports IDronestatus
      * @interface IDronestatus
-     * @property {boolean} [motors] Dronestatus motors
-     * @property {boolean} [flying] Dronestatus flying
+     * @property {boolean} [motors] 电机状态
+     * desc: 电机是否启动
+     * @property {boolean} [flying] 飞行状态
+     * desc: 是否正在飞行
      */
 
     /**
@@ -2016,7 +2054,8 @@ $root.Dronestatus = (function() {
     }
 
     /**
-     * Dronestatus motors.
+     * 电机状态
+     * desc: 电机是否启动
      * @member {boolean}motors
      * @memberof Dronestatus
      * @instance
@@ -2024,7 +2063,8 @@ $root.Dronestatus = (function() {
     Dronestatus.prototype.motors = false;
 
     /**
-     * Dronestatus flying.
+     * 飞行状态
+     * desc: 是否正在飞行
      * @member {boolean}flying
      * @memberof Dronestatus
      * @instance
@@ -2206,12 +2246,25 @@ $root.GNSS = (function() {
      * Properties of a GNSS.
      * @exports IGNSS
      * @interface IGNSS
-     * @property {number} [satellite] GNSS satellite
-     * @property {number} [latitude] GNSS latitude
-     * @property {number} [longitude] GNSS longitude
-     * @property {number} [amsl] GNSS amsl
-     * @property {number} [ato] GNSS ato
-     * @property {google.protobuf.ITimestamp} [timestamp] GNSS timestamp
+     * @property {number} [satellite] 卫星数
+     * desc: 3颗：2D定位，4颗：3D定位
+     * range: [0, 65535]
+     * @property {number} [latitude] 纬度
+     * desc: 纬度，十进制，北纬为正，南纬为负
+     * unit: °
+     * range: [-90, 90]
+     * @property {number} [longitude] 经度
+     * desc: 经度，十进制，东经为正，西经为负
+     * unit: °
+     * range: [-90, 90]
+     * @property {number} [amsl] 海拔高度
+     * desc: 海拔高度（AMSL）
+     * unit: m
+     * @property {number} [ato] 相对地面高度
+     * desc: 相对起飞点高度（ATO），只有飞行器或潜艇需要此参数
+     * unit: m
+     * @property {google.protobuf.ITimestamp} [timestamp] GPS 时间
+     * desc: GPS 时间,可选参数
      */
 
     /**
@@ -2229,7 +2282,9 @@ $root.GNSS = (function() {
     }
 
     /**
-     * GNSS satellite.
+     * 卫星数
+     * desc: 3颗：2D定位，4颗：3D定位
+     * range: [0, 65535]
      * @member {number}satellite
      * @memberof GNSS
      * @instance
@@ -2237,7 +2292,10 @@ $root.GNSS = (function() {
     GNSS.prototype.satellite = 0;
 
     /**
-     * GNSS latitude.
+     * 纬度
+     * desc: 纬度，十进制，北纬为正，南纬为负
+     * unit: °
+     * range: [-90, 90]
      * @member {number}latitude
      * @memberof GNSS
      * @instance
@@ -2245,7 +2303,10 @@ $root.GNSS = (function() {
     GNSS.prototype.latitude = 0;
 
     /**
-     * GNSS longitude.
+     * 经度
+     * desc: 经度，十进制，东经为正，西经为负
+     * unit: °
+     * range: [-90, 90]
      * @member {number}longitude
      * @memberof GNSS
      * @instance
@@ -2253,7 +2314,9 @@ $root.GNSS = (function() {
     GNSS.prototype.longitude = 0;
 
     /**
-     * GNSS amsl.
+     * 海拔高度
+     * desc: 海拔高度（AMSL）
+     * unit: m
      * @member {number}amsl
      * @memberof GNSS
      * @instance
@@ -2261,7 +2324,9 @@ $root.GNSS = (function() {
     GNSS.prototype.amsl = 0;
 
     /**
-     * GNSS ato.
+     * 相对地面高度
+     * desc: 相对起飞点高度（ATO），只有飞行器或潜艇需要此参数
+     * unit: m
      * @member {number}ato
      * @memberof GNSS
      * @instance
@@ -2269,7 +2334,8 @@ $root.GNSS = (function() {
     GNSS.prototype.ato = 0;
 
     /**
-     * GNSS timestamp.
+     * GPS 时间
+     * desc: GPS 时间,可选参数
      * @member {(google.protobuf.ITimestamp|null|undefined)}timestamp
      * @memberof GNSS
      * @instance
@@ -2508,10 +2574,20 @@ $root.Signal = (function() {
      * Properties of a Signal.
      * @exports ISignal
      * @interface ISignal
-     * @property {number} [percent] Signal percent
-     * @property {Signal.Type} [type] Signal type
-     * @property {string} [protocal] Signal protocal
-     * @property {number} [rssi] Signal rssi
+     * @property {number} [percent] 信号强度
+     * desc: 信号强度百分比
+     * unit: %
+     * range: [0, 100]
+     * @property {Signal.Type} [type] 类型
+     * desc: 连接方式类型
+     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, WIFI24GHZ, WIFI58GHZ]
+     * @property {string} [protocal] 协议
+     * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
+     * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
+     * @property {number} [rssi] RSSI
+     * desc: 接收信号强度指示
+     * unit: dBm
+     * range: (-∞, 0]
      */
 
     /**
@@ -2529,7 +2605,10 @@ $root.Signal = (function() {
     }
 
     /**
-     * Signal percent.
+     * 信号强度
+     * desc: 信号强度百分比
+     * unit: %
+     * range: [0, 100]
      * @member {number}percent
      * @memberof Signal
      * @instance
@@ -2537,7 +2616,9 @@ $root.Signal = (function() {
     Signal.prototype.percent = 0;
 
     /**
-     * Signal type.
+     * 类型
+     * desc: 连接方式类型
+     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, WIFI24GHZ, WIFI58GHZ]
      * @member {Signal.Type}type
      * @memberof Signal
      * @instance
@@ -2545,7 +2626,9 @@ $root.Signal = (function() {
     Signal.prototype.type = 0;
 
     /**
-     * Signal protocal.
+     * 协议
+     * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
+     * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
      * @member {string}protocal
      * @memberof Signal
      * @instance
@@ -2553,7 +2636,10 @@ $root.Signal = (function() {
     Signal.prototype.protocal = "";
 
     /**
-     * Signal rssi.
+     * RSSI
+     * desc: 接收信号强度指示
+     * unit: dBm
+     * range: (-∞, 0]
      * @member {number}rssi
      * @memberof Signal
      * @instance
@@ -2796,7 +2882,15 @@ $root.Signal = (function() {
     };
 
     /**
-     * Type enum.
+     * 枚举类型说明:
+     * 未知(默认值): UNDEFINED
+     * 其他类型: OTHER
+     * 2G: TELE2G
+     * 3G: TELE3G
+     * 4G: TELE4G
+     * 5G: TELE5G
+     * 2.4GHz: WIFI24GHZ
+     * 5.8GHz: WIFI58GHZ
      * @enum {string}
      * @property {number} UNDEFINED=0 UNDEFINED value
      * @property {number} OTHER=1 OTHER value
@@ -2829,9 +2923,15 @@ $root.Velocity = (function() {
      * Properties of a Velocity.
      * @exports IVelocity
      * @interface IVelocity
-     * @property {number} [x] Velocity x
-     * @property {number} [y] Velocity y
-     * @property {number} [z] Velocity z
+     * @property {number} [x] x速度
+     * desc: 载具在x方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
+     * @property {number} [y] y速度
+     * desc: 载具在y方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
+     * @property {number} [z] z速度
+     * desc: 载具在z方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
      */
 
     /**
@@ -2849,7 +2949,9 @@ $root.Velocity = (function() {
     }
 
     /**
-     * Velocity x.
+     * x速度
+     * desc: 载具在x方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
      * @member {number}x
      * @memberof Velocity
      * @instance
@@ -2857,7 +2959,9 @@ $root.Velocity = (function() {
     Velocity.prototype.x = 0;
 
     /**
-     * Velocity y.
+     * y速度
+     * desc: 载具在y方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
      * @member {number}y
      * @memberof Velocity
      * @instance
@@ -2865,7 +2969,9 @@ $root.Velocity = (function() {
     Velocity.prototype.y = 0;
 
     /**
-     * Velocity z.
+     * z速度
+     * desc: 载具在z方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
      * @member {number}z
      * @memberof Velocity
      * @instance

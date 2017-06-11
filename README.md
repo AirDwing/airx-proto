@@ -65,7 +65,7 @@ message Battery {
     uint32 percent = 1;
     bool charging = 2;
     uint32 voltage = 3;
-    uint32 current = 4;
+    int32 current = 4;
 }
 
 message Dronestatus {

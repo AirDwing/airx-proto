@@ -623,13 +623,28 @@ export class Gateway {
 /** Properties of an Attitude. */
 export interface IAttitude {
 
-    /** Attitude pitch */
+    /**
+     * 俯仰
+     * desc: 俯仰角，绕x轴，对应欧拉角γ。抬头为正
+     * unit: °
+     * range: [-180, 180]
+     */
     pitch?: number;
 
-    /** Attitude roll */
+    /**
+     * 横滚
+     * desc: 翻滚角，绕z轴，对应欧拉角β。右滚为正
+     * unit: °
+     * range: [-180, 180]
+     */
     roll?: number;
 
-    /** Attitude yaw */
+    /**
+     * 偏航
+     * desc: 方向/航向角，绕y轴，对应欧拉角α。0为指向真北，顺时针旋转增加数值
+     * unit: °
+     * range: [-180, 180]
+     */
     yaw?: number;
 }
 
@@ -642,13 +657,28 @@ export class Attitude {
      */
     constructor(properties?: IAttitude);
 
-    /** Attitude pitch. */
+    /**
+     * 俯仰
+     * desc: 俯仰角，绕x轴，对应欧拉角γ。抬头为正
+     * unit: °
+     * range: [-180, 180]
+     */
     public pitch: number;
 
-    /** Attitude roll. */
+    /**
+     * 横滚
+     * desc: 翻滚角，绕z轴，对应欧拉角β。右滚为正
+     * unit: °
+     * range: [-180, 180]
+     */
     public roll: number;
 
-    /** Attitude yaw. */
+    /**
+     * 偏航
+     * desc: 方向/航向角，绕y轴，对应欧拉角α。0为指向真北，顺时针旋转增加数值
+     * unit: °
+     * range: [-180, 180]
+     */
     public yaw: number;
 
     /**
@@ -725,16 +755,33 @@ export class Attitude {
 /** Properties of a Battery. */
 export interface IBattery {
 
-    /** Battery percent */
+    /**
+     * 电量
+     * desc: 电量百分比
+     * unit: %
+     * range: [0, 100]
+     */
     percent?: number;
 
-    /** Battery charging */
+    /**
+     * 正在充电
+     * desc: 是否正在充电
+     */
     charging?: boolean;
 
-    /** Battery voltage */
+    /**
+     * 电压
+     * desc: 电池组总电压
+     * unit: mV
+     * range: [0, +∞)
+     */
     voltage?: number;
 
-    /** Battery current */
+    /**
+     * 电流
+     * desc: 正为放电，负为充电
+     * unit: mA
+     */
     current?: number;
 }
 
@@ -747,16 +794,33 @@ export class Battery {
      */
     constructor(properties?: IBattery);
 
-    /** Battery percent. */
+    /**
+     * 电量
+     * desc: 电量百分比
+     * unit: %
+     * range: [0, 100]
+     */
     public percent: number;
 
-    /** Battery charging. */
+    /**
+     * 正在充电
+     * desc: 是否正在充电
+     */
     public charging: boolean;
 
-    /** Battery voltage. */
+    /**
+     * 电压
+     * desc: 电池组总电压
+     * unit: mV
+     * range: [0, +∞)
+     */
     public voltage: number;
 
-    /** Battery current. */
+    /**
+     * 电流
+     * desc: 正为放电，负为充电
+     * unit: mA
+     */
     public current: number;
 
     /**
@@ -833,10 +897,16 @@ export class Battery {
 /** Properties of a Dronestatus. */
 export interface IDronestatus {
 
-    /** Dronestatus motors */
+    /**
+     * 电机状态
+     * desc: 电机是否启动
+     */
     motors?: boolean;
 
-    /** Dronestatus flying */
+    /**
+     * 飞行状态
+     * desc: 是否正在飞行
+     */
     flying?: boolean;
 }
 
@@ -849,10 +919,16 @@ export class Dronestatus {
      */
     constructor(properties?: IDronestatus);
 
-    /** Dronestatus motors. */
+    /**
+     * 电机状态
+     * desc: 电机是否启动
+     */
     public motors: boolean;
 
-    /** Dronestatus flying. */
+    /**
+     * 飞行状态
+     * desc: 是否正在飞行
+     */
     public flying: boolean;
 
     /**
@@ -929,22 +1005,47 @@ export class Dronestatus {
 /** Properties of a GNSS. */
 export interface IGNSS {
 
-    /** GNSS satellite */
+    /**
+     * 卫星数
+     * desc: 3颗：2D定位，4颗：3D定位
+     * range: [0, 65535]
+     */
     satellite?: number;
 
-    /** GNSS latitude */
+    /**
+     * 纬度
+     * desc: 纬度，十进制，北纬为正，南纬为负
+     * unit: °
+     * range: [-90, 90]
+     */
     latitude?: number;
 
-    /** GNSS longitude */
+    /**
+     * 经度
+     * desc: 经度，十进制，东经为正，西经为负
+     * unit: °
+     * range: [-90, 90]
+     */
     longitude?: number;
 
-    /** GNSS amsl */
+    /**
+     * 海拔高度
+     * desc: 海拔高度（AMSL）
+     * unit: m
+     */
     amsl?: number;
 
-    /** GNSS ato */
+    /**
+     * 相对地面高度
+     * desc: 相对起飞点高度（ATO），只有飞行器或潜艇需要此参数
+     * unit: m
+     */
     ato?: number;
 
-    /** GNSS timestamp */
+    /**
+     * GPS 时间
+     * desc: GPS 时间,可选参数
+     */
     timestamp?: google.protobuf.ITimestamp;
 }
 
@@ -957,22 +1058,47 @@ export class GNSS {
      */
     constructor(properties?: IGNSS);
 
-    /** GNSS satellite. */
+    /**
+     * 卫星数
+     * desc: 3颗：2D定位，4颗：3D定位
+     * range: [0, 65535]
+     */
     public satellite: number;
 
-    /** GNSS latitude. */
+    /**
+     * 纬度
+     * desc: 纬度，十进制，北纬为正，南纬为负
+     * unit: °
+     * range: [-90, 90]
+     */
     public latitude: number;
 
-    /** GNSS longitude. */
+    /**
+     * 经度
+     * desc: 经度，十进制，东经为正，西经为负
+     * unit: °
+     * range: [-90, 90]
+     */
     public longitude: number;
 
-    /** GNSS amsl. */
+    /**
+     * 海拔高度
+     * desc: 海拔高度（AMSL）
+     * unit: m
+     */
     public amsl: number;
 
-    /** GNSS ato. */
+    /**
+     * 相对地面高度
+     * desc: 相对起飞点高度（ATO），只有飞行器或潜艇需要此参数
+     * unit: m
+     */
     public ato: number;
 
-    /** GNSS timestamp. */
+    /**
+     * GPS 时间
+     * desc: GPS 时间,可选参数
+     */
     public timestamp?: (google.protobuf.ITimestamp|null);
 
     /**
@@ -1049,16 +1175,34 @@ export class GNSS {
 /** Properties of a Signal. */
 export interface ISignal {
 
-    /** Signal percent */
+    /**
+     * 信号强度
+     * desc: 信号强度百分比
+     * unit: %
+     * range: [0, 100]
+     */
     percent?: number;
 
-    /** Signal type */
+    /**
+     * 类型
+     * desc: 连接方式类型
+     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, WIFI24GHZ, WIFI58GHZ]
+     */
     type?: Signal.Type;
 
-    /** Signal protocal */
+    /**
+     * 协议
+     * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
+     * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
+     */
     protocal?: string;
 
-    /** Signal rssi */
+    /**
+     * RSSI
+     * desc: 接收信号强度指示
+     * unit: dBm
+     * range: (-∞, 0]
+     */
     rssi?: number;
 }
 
@@ -1071,16 +1215,34 @@ export class Signal {
      */
     constructor(properties?: ISignal);
 
-    /** Signal percent. */
+    /**
+     * 信号强度
+     * desc: 信号强度百分比
+     * unit: %
+     * range: [0, 100]
+     */
     public percent: number;
 
-    /** Signal type. */
+    /**
+     * 类型
+     * desc: 连接方式类型
+     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, WIFI24GHZ, WIFI58GHZ]
+     */
     public type: Signal.Type;
 
-    /** Signal protocal. */
+    /**
+     * 协议
+     * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
+     * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
+     */
     public protocal: string;
 
-    /** Signal rssi. */
+    /**
+     * RSSI
+     * desc: 接收信号强度指示
+     * unit: dBm
+     * range: (-∞, 0]
+     */
     public rssi: number;
 
     /**
@@ -1156,7 +1318,17 @@ export class Signal {
 
 export namespace Signal {
 
-    /** Type enum. */
+    /**
+     * 枚举类型说明:
+     * 未知(默认值): UNDEFINED
+     * 其他类型: OTHER
+     * 2G: TELE2G
+     * 3G: TELE3G
+     * 4G: TELE4G
+     * 5G: TELE5G
+     * 2.4GHz: WIFI24GHZ
+     * 5.8GHz: WIFI58GHZ
+     */
     enum Type {
         UNDEFINED = 0,
         OTHER = 1,
@@ -1172,13 +1344,25 @@ export namespace Signal {
 /** Properties of a Velocity. */
 export interface IVelocity {
 
-    /** Velocity x */
+    /**
+     * x速度
+     * desc: 载具在x方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
+     */
     x?: number;
 
-    /** Velocity y */
+    /**
+     * y速度
+     * desc: 载具在y方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
+     */
     y?: number;
 
-    /** Velocity z */
+    /**
+     * z速度
+     * desc: 载具在z方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
+     */
     z?: number;
 }
 
@@ -1191,13 +1375,25 @@ export class Velocity {
      */
     constructor(properties?: IVelocity);
 
-    /** Velocity x. */
+    /**
+     * x速度
+     * desc: 载具在x方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
+     */
     public x: number;
 
-    /** Velocity y. */
+    /**
+     * y速度
+     * desc: 载具在y方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
+     */
     public y: number;
 
-    /** Velocity z. */
+    /**
+     * z速度
+     * desc: 载具在z方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+     * unit: m
+     */
     public z: number;
 
     /**

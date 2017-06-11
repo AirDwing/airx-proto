@@ -4,10 +4,46 @@ import "google/protobuf/timestamp.proto";
 
 // 位置传感器
 message GNSS {
-  uint32 satellite = 1; // 卫星数
-  double latitude = 2; // 纬度
-  double longitude = 3;  // 经度
-  double amsl = 4; // 海拔高度,单位:m
-  double ato = 5; // 相对地面高度,单位:m
-  google.protobuf.Timestamp timestamp = 6; // GPS 时间,可选
+  /**
+   * 卫星数
+   * desc: 3颗：2D定位，4颗：3D定位
+   * range: [0, 65535]
+   */
+  uint32 satellite = 1;
+  
+  /**
+   * 纬度
+   * desc: 纬度，十进制，北纬为正，南纬为负
+   * unit: °
+   * range: [-90, 90]
+   */
+  double latitude = 2;
+  
+  /**
+   * 经度
+   * desc: 经度，十进制，东经为正，西经为负
+   * unit: °
+   * range: [-90, 90]
+   */
+  double longitude = 3;
+  
+  /**
+   * 海拔高度
+   * desc: 海拔高度（AMSL）
+   * unit: m
+   */
+  double amsl = 4;
+  
+  /**
+   * 相对地面高度
+   * desc: 相对起飞点高度（ATO），只有飞行器或潜艇需要此参数
+   * unit: m
+   */
+  double ato = 5;
+  
+  /**
+   * GPS 时间
+   * desc: GPS 时间,可选参数
+   */
+  google.protobuf.Timestamp timestamp = 6;
 }

@@ -2,6 +2,15 @@ syntax = "proto3";
 
 // 无人机状态
 message Dronestatus {
-  bool motors = 1; // 电机是否启动
-  bool flying = 2; // 是否正在飞行
+  /**
+   * 电机状态
+   * desc: 电机是否启动
+   */
+  bool motors = 1;
+
+  /**
+   * 飞行状态
+   * desc: 是否正在飞行
+   */
+  bool flying = 2;
 }

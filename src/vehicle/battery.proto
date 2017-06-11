@@ -2,8 +2,32 @@ syntax = "proto3";
 
 // 电池传感器
 message Battery {
-  uint32 percent = 1; // 电量
-  bool charging = 2; // 正在充电
-  uint32 voltage = 3; // 电压
-  uint32 current = 4; // 电流
+  /**
+   * 电量
+   * desc: 电量百分比
+   * unit: %
+   * range: [0, 100]
+   */
+  uint32 percent = 1;
+
+  /**
+   * 正在充电
+   * desc: 是否正在充电
+   */
+  bool charging = 2;
+
+  /**
+   * 电压
+   * desc: 电池组总电压
+   * unit: mV
+   * range: [0, +∞)
+   */
+  uint32 voltage = 3;
+
+  /**
+   * 电流
+   * desc: 正为放电，负为充电
+   * unit: mA
+   */
+  int32 current = 4;
 }

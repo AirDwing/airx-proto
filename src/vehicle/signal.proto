@@ -2,18 +2,55 @@ syntax = "proto3";
 
 // 信号传感器
 message Signal {
-  uint32 percent = 1; // 信号强度百分比
+  /**
+   * 信号强度
+   * desc: 信号强度百分比
+   * unit: %
+   * range: [0, 100]
+   */
+  uint32 percent = 1;
+  
+  /**
+   * 枚举类型说明:
+   * 未知(默认值): UNDEFINED
+   * 其他类型: OTHER
+   * 2G: TELE2G
+   * 3G: TELE3G
+   * 4G: TELE4G
+   * 5G: TELE5G
+   * 2.4GHz: WIFI24GHZ
+   * 5.8GHz: WIFI58GHZ
+   */
   enum Type {
     UNDEFINED = 0;
     OTHER = 1;
-    TELE2G = 2; // 2G
-    TELE3G = 3; // 3G
-    TELE4G = 4; // 4G
-    TELE5G = 5; // 5G
-    WIFI24GHZ = 6; // WIFI 2.4GHz
-    WIFI58GHZ = 7; // WIFI 5.8GHz
+    TELE2G = 2;
+    TELE3G = 3;
+    TELE4G = 4;
+    TELE5G = 5;
+    WIFI24GHZ = 6;
+    WIFI58GHZ = 7;
   }
-  Type type = 2; // 连接方式类型
-  string protocal = 3; // 协议
-  int32 rssi = 4; // 接收信号强度
+  
+  /**
+   * 类型
+   * desc: 连接方式类型
+   * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, WIFI24GHZ, WIFI58GHZ]
+   */
+  Type type = 2;
+  
+  /**
+   * 协议
+   * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
+   * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
+   */
+  string protocal = 3;
+  
+  /**
+   * RSSI
+   * desc: 接收信号强度指示
+   * unit: dBm
+   * range: (-∞, 0]
+   */
+  int32 rssi = 4;
 }

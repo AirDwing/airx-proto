@@ -2,7 +2,24 @@ syntax = "proto3";
 
 // 三维速度
 message Velocity {
+  /**
+   * x速度
+   * desc: 载具在x方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+   * unit: m
+   */
   float x = 1;
+
+  /**
+   * y速度
+   * desc: 载具在y方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+   * unit: m
+   */
   float y = 2;
+
+  /**
+   * z速度
+   * desc: 载具在z方向上的速度，使用N-E-D (North-East-Down)，以米为单位
+   * unit: m
+   */
   float z = 3;
 }

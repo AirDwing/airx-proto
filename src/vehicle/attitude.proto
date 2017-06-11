@@ -2,7 +2,27 @@ syntax = "proto3";
 
 // 姿态传感器
 message Attitude {
-  float pitch = 1; // 俯仰
-  float roll = 2; // 横滚
-  float yaw = 3; // 偏航
+  /**
+   * 俯仰
+   * desc: 俯仰角，绕x轴，对应欧拉角γ。抬头为正
+   * unit: °
+   * range: [-180, 180]
+   */
+  float pitch = 1;
+
+  /**
+   * 横滚
+   * desc: 翻滚角，绕z轴，对应欧拉角β。右滚为正
+   * unit: °
+   * range: [-180, 180]
+   */
+  float roll = 2;
+  
+  /**
+   * 偏航
+   * desc: 方向/航向角，绕y轴，对应欧拉角α。0为指向真北，顺时针旋转增加数值
+   * unit: °
+   * range: [-180, 180]
+   */
+  float yaw = 3;
 }
