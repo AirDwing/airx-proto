@@ -15,7 +15,7 @@ import "vehicle/velocity.proto";
 message Message {
   string did = 1; // 设备id,必须
   google.protobuf.Timestamp timestamp = 2; // 上报时间戳,必须
-  Data data = 20;  // 数据
+  Data data = 3;  // 数据
 }
 
 // 数据

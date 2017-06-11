@@ -9,7 +9,7 @@ message Message {
 
     string did = 1;
     google.protobuf.Timestamp timestamp = 2;
-    Data data = 20;
+    Data data = 3;
 }
 
 message Data {

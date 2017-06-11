@@ -87,7 +87,7 @@ $root.Message = (function() {
         if (message.timestamp != null && message.hasOwnProperty("timestamp"))
             $root.google.protobuf.Timestamp.encode(message.timestamp, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
         if (message.data != null && message.hasOwnProperty("data"))
-            $root.Data.encode(message.data, writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
+            $root.Data.encode(message.data, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
         return writer;
     };
 
@@ -128,7 +128,7 @@ $root.Message = (function() {
             case 2:
                 message.timestamp = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                 break;
-            case 20:
+            case 3:
                 message.data = $root.Data.decode(reader, reader.uint32());
                 break;
             default:
