@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-import "google/protobuf/any.proto";
-
-message Custom { // 自定义数据
-  string key = 1;
-  google.protobuf.Any val = 2;
-}

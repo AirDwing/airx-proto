@@ -1,11 +1,44 @@
 syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
-import "module/data.proto";
-import "module/action.proto";
+import "google/protobuf/any.proto";
 
+import "gateway/base.proto";
+import "vehicle/attitude.proto";
+import "vehicle/battery.proto";
+import "vehicle/dronestatus.proto";
+import "vehicle/gnss.proto";
+import "vehicle/signal.proto";
+import "vehicle/velocity.proto";
+
+// 消息报文
 message Message {
   string did = 1; // 设备id,必须
   google.protobuf.Timestamp timestamp = 2; // 上报时间戳,必须
-  Data data = 20;  // 数据报文
+  Data data = 20;  // 数据
+}
+
+// 数据
+message Data {
+  // 已定义类型数据
+  // 1 网关
+  Gateway gateway = 1; // 网关
+  
+  // 2 飞行器
+  Attitude attitude = 21; // 姿态传感器
+  Battery battery = 22; // 电池传感器
+  Dronestatus dronestatus = 23; // 三维速度
+  GNSS gnss = 24; // GNSS传感器
+  Signal signal = 25; // 信号传感器
+  Velocity velocity = 26; // 无人机状态
+  
+  // 3 传感器
+
+  //自定义数据
+  repeated Custom custom = 99;
+}
+
+message Custom { // 自定义数据
+  string key = 1;
+  google.protobuf.Any val = 2;
 }

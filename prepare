@@ -1,0 +1,19 @@
+#! /usr/bin/env node
+
+const { execSync } = require('child_process');
+const { readFileSync, writeFileSync } = require('fs');
+const { join } = require('path');
+
+const PBJS = './node_modules/.bin/pbjs';
+const PBTS = './node_modules/.bin/pbts';
+const cwd = join(__dirname, './');
+
+execSync(`${PBJS} -t proto3 -o dist/message.proto src/message.proto`, {cwd});
+execSync(`${PBJS} -t static-module -w commonjs -o dist/message.js src/message.proto`, {cwd});
+execSync(`${PBJS} -t static-module -w commonjs src/message.proto | ${PBTS} -o dist/message.d.ts -`, {cwd});
+
+const result = execSync('cat dist/message.proto', {cwd});
+
+const md = readFileSync(join(__dirname, './.template.md')).toString().replace('<!-- PROTO -->', result.toString());
+writeFileSync(join(__dirname, './README.md'), md);
+

@@ -1,21 +1,18 @@
 {
-  "name": "protocol-buffer",
+  "name": "@airx/proto",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/message.js",
   "scripts": {
-    "test": "node ."
+    "prepare": "./prepare"
   },
   "dependencies": {
     "protobufjs": "^6.7.3"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^15.0.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^5.0.1",
-    "eslint-plugin-react": "^7.0.1"
+    "eslint-config-dwing": "^1.0.2"
   },
-  "repository": "git@git.coding.net:dwing/protocol-buffer.git",
+  "repository": "git@github.com:AirDwing/airx-proto.git",
   "author": "willin <willin@willin.org>",
-  "license": "MIT"
+  "license": "Apache 2.0"
 }

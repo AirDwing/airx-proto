@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-// 三位速度
+// 三维速度
 message Velocity {
   float x = 1;
   float y = 2;
