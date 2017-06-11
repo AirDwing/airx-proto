@@ -1,7 +1,5 @@
 # @airx/proto
 
-## 目录结构
-
 ## 消息定义
 
 ```proto
@@ -114,10 +112,24 @@ message Velocity {
 }
 ```
 
+## 目录结构
+
+```bash
+- gateway
+  - base.proto # 网关数据
+- message.proto # 消息报文
+- sensor
+- vehicle
+  - attitude.proto # 姿态传感器
+  - battery.proto # 电池传感器
+  - dronestatus.proto # 无人机状态
+  - gnss.proto # 位置传感器
+  - signal.proto # 信号传感器
+  - velocity.proto # 三维速度
+```
 ## Node.js
 
-[![npm](https://img.shields.io/npm/v/@airx/proto.svg?style=plastic)](https://npmjs.org/package/@airx/proto) [![npm](https://img.shields.io/npm/dm/@airx/proto.svg?style=plastic)](https://npmjs.org/package/@airx/proto)
-[![npm](https://img.shields.io/npm/dt/@airx/proto.svg?style=plastic)](https://npmjs.org/package/@airx/proto)
+[![npm](https://img.shields.io/npm/v/@airx/proto.svg?style=plastic)](https://npmjs.org/package/@airx/proto) [![npm](https://img.shields.io/npm/dm/@airx/proto.svg?style=plastic)](https://npmjs.org/package/@airx/proto) [![npm](https://img.shields.io/npm/dt/@airx/proto.svg?style=plastic)](https://npmjs.org/package/@airx/proto)
 
 安装:
 

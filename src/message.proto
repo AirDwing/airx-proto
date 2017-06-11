@@ -34,7 +34,7 @@ message Data {
   
   // 3 传感器
 
-  //自定义数据
+  // 自定义数据
   repeated Custom custom = 99;
 }
 

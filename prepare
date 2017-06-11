@@ -1,19 +1,46 @@
 #! /usr/bin/env node
 
 const { execSync } = require('child_process');
-const { readFileSync, writeFileSync } = require('fs');
+const { readdirSync, readFileSync, writeFileSync, statSync } = require('fs');
 const { join } = require('path');
 
 const PBJS = './node_modules/.bin/pbjs';
 const PBTS = './node_modules/.bin/pbts';
 const cwd = join(__dirname, './');
 
-execSync(`${PBJS} -t proto3 -o dist/message.proto src/message.proto`, {cwd});
-execSync(`${PBJS} -t static-module -w commonjs -o dist/message.js src/message.proto`, {cwd});
+// 压缩输出成一个 .proto 文件
+execSync(`${PBJS} -t proto3 -o dist/message.proto src/message.proto`, { cwd });
+// 输出可直接引用的js
+execSync(`${PBJS} -t static-module -w commonjs -o dist/message.js src/message.proto`, { cwd });
+// 输出代码提示文件 .d.ts
 execSync(`${PBJS} -t static-module -w commonjs src/message.proto | ${PBTS} -o dist/message.d.ts -`, {cwd});
 
-const result = execSync('cat dist/message.proto', {cwd});
+// 读取压缩报文 -> README.md
+const proto = readFileSync(join(__dirname, './dist/message.proto'), 'utf-8');
 
-const md = readFileSync(join(__dirname, './.template.md')).toString().replace('<!-- PROTO -->', result.toString());
+// 分析源码目录 -> README.md
+const result = [];
+
+const deepIn = (dir, level = 0) => {
+  const folder = readdirSync(dir);
+  folder.forEach((x) => {
+    const stat = statSync(join(dir, x));
+    if (stat.isDirectory()) {
+      result.push(`${' '.repeat(level * 2)}- ${x}`);
+      deepIn(join(dir, x), level + 1);
+    } else if (x.endsWith('.proto')) {
+      const file = readFileSync(join(dir, x), 'utf-8');
+      try {
+        const msg = file.match(/\/\/\s(\S+)\n/)[1];
+        result.push(`${' '.repeat(level * 2)}- ${x} # ${msg}`);
+      } catch (e) {
+        result.push(`${' '.repeat(level * 2)}- ${x}`);
+      }
+    }
+  });
+};
+
+deepIn(join(__dirname, './src'));
+
+const md = readFileSync(join(__dirname, './.template.md')).toString().replace('<!-- PROTO -->', proto).replace('<!-- SOURCE -->', result.join('\n'));
 writeFileSync(join(__dirname, './README.md'), md);
-
