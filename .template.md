@@ -1,5 +1,9 @@
 # @airx/proto
 
+## 最新版本号
+
+[![npm](https://img.shields.io/npm/v/@airx/proto.svg?style=plastic)](https://npmjs.org/package/@airx/proto) 
+
 ## 消息定义
 
 ```proto
