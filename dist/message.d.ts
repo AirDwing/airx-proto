@@ -1186,7 +1186,7 @@ export interface ISignal {
     /**
      * 类型
      * desc: 连接方式类型
-     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, WIFI24GHZ, WIFI58GHZ]
+     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
      */
     type?: Signal.Type;
 
@@ -1226,7 +1226,7 @@ export class Signal {
     /**
      * 类型
      * desc: 连接方式类型
-     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, WIFI24GHZ, WIFI58GHZ]
+     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
      */
     public type: Signal.Type;
 
@@ -1326,8 +1326,8 @@ export namespace Signal {
      * 3G: TELE3G
      * 4G: TELE4G
      * 5G: TELE5G
-     * 2.4GHz: WIFI24GHZ
-     * 5.8GHz: WIFI58GHZ
+     * 2.4GHz: BAND24GHZ
+     * 5.8GHz: BAND58GHZ
      */
     enum Type {
         UNDEFINED = 0,
@@ -1336,8 +1336,8 @@ export namespace Signal {
         TELE3G = 3,
         TELE4G = 4,
         TELE5G = 5,
-        WIFI24GHZ = 6,
-        WIFI58GHZ = 7
+        BAND24GHZ = 6,
+        BAND58GHZ = 7
     }
 }
 

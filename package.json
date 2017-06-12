@@ -1,6 +1,6 @@
 {
   "name": "@airx/proto",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/message.js",
   "typings": "dist/message.t.ds",
   "scripts": {

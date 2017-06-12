@@ -94,8 +94,8 @@ message Signal {
         TELE3G = 3;
         TELE4G = 4;
         TELE5G = 5;
-        WIFI24GHZ = 6;
-        WIFI58GHZ = 7;
+        BAND24GHZ = 6;
+        BAND58GHZ = 7;
     }
 }
 

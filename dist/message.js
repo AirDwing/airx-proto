@@ -2580,7 +2580,7 @@ $root.Signal = (function() {
      * range: [0, 100]
      * @property {Signal.Type} [type] 类型
      * desc: 连接方式类型
-     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, WIFI24GHZ, WIFI58GHZ]
+     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
      * @property {string} [protocal] 协议
      * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
      * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
@@ -2618,7 +2618,7 @@ $root.Signal = (function() {
     /**
      * 类型
      * desc: 连接方式类型
-     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, WIFI24GHZ, WIFI58GHZ]
+     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
      * @member {Signal.Type}type
      * @memberof Signal
      * @instance
@@ -2824,11 +2824,11 @@ $root.Signal = (function() {
         case 5:
             message.type = 5;
             break;
-        case "WIFI24GHZ":
+        case "BAND24GHZ":
         case 6:
             message.type = 6;
             break;
-        case "WIFI58GHZ":
+        case "BAND58GHZ":
         case 7:
             message.type = 7;
             break;
@@ -2889,8 +2889,8 @@ $root.Signal = (function() {
      * 3G: TELE3G
      * 4G: TELE4G
      * 5G: TELE5G
-     * 2.4GHz: WIFI24GHZ
-     * 5.8GHz: WIFI58GHZ
+     * 2.4GHz: BAND24GHZ
+     * 5.8GHz: BAND58GHZ
      * @enum {string}
      * @property {number} UNDEFINED=0 UNDEFINED value
      * @property {number} OTHER=1 OTHER value
@@ -2898,8 +2898,8 @@ $root.Signal = (function() {
      * @property {number} TELE3G=3 TELE3G value
      * @property {number} TELE4G=4 TELE4G value
      * @property {number} TELE5G=5 TELE5G value
-     * @property {number} WIFI24GHZ=6 WIFI24GHZ value
-     * @property {number} WIFI58GHZ=7 WIFI58GHZ value
+     * @property {number} BAND24GHZ=6 BAND24GHZ value
+     * @property {number} BAND58GHZ=7 BAND58GHZ value
      */
     Signal.Type = (function() {
         var valuesById = {}, values = Object.create(valuesById);
@@ -2909,8 +2909,8 @@ $root.Signal = (function() {
         values[valuesById[3] = "TELE3G"] = 3;
         values[valuesById[4] = "TELE4G"] = 4;
         values[valuesById[5] = "TELE5G"] = 5;
-        values[valuesById[6] = "WIFI24GHZ"] = 6;
-        values[valuesById[7] = "WIFI58GHZ"] = 7;
+        values[valuesById[6] = "BAND24GHZ"] = 6;
+        values[valuesById[7] = "BAND58GHZ"] = 7;
         return values;
     })();
 
