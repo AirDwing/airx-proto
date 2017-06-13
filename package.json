@@ -7,7 +7,7 @@
     "prepare": "./prepare"
   },
   "dependencies": {
-    "protobufjs": "^6.7.3"
+    "protobufjs": "^6.8.0"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
