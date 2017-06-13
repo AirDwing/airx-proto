@@ -135,7 +135,7 @@ message Velocity {
 
 [![npm](https://img.shields.io/npm/v/@airx/proto.svg?style=plastic)](https://npmjs.org/package/@airx/proto) [![npm](https://img.shields.io/npm/dm/@airx/proto.svg?style=plastic)](https://npmjs.org/package/@airx/proto) [![npm](https://img.shields.io/npm/dt/@airx/proto.svg?style=plastic)](https://npmjs.org/package/@airx/proto)
 
-安装:
+### 安装
 
 ```bash
 yarn add @airx/proto
@@ -143,7 +143,7 @@ yarn add @airx/proto
 npm i --save @airx/proto
 ```
 
-示例:
+### Encode/Decode 示例
 
 ```js
 const { Message } = require('@airx/proto');
@@ -154,6 +154,15 @@ const buffer = Message.encode(message).finish();
 const decoded = Message.decode(buffer);
 ```
 
+### google.protobuf.Timestamp 示例
+
+```js
+const timestamp = require('@airx/proto/timestamp');
+const timestampObject = timestamp.set( new Date() );
+// 返回 JSON Mapping 对象
+const timestampFromObject = timestamp.get(timestampObject);
+// 返回 Date Object
+```
 
 ## License
 
