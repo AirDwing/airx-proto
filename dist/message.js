@@ -263,6 +263,7 @@ $root.Data = (function() {
      * @property {IGNSS} [gnss] Data gnss
      * @property {ISignal} [signal] Data signal
      * @property {IVelocity} [velocity] Data velocity
+     * @property {IAtmosphere} [atmosphere] Data atmosphere
      * @property {Array.<ICustom>} [custom] Data custom
      */
 
@@ -338,6 +339,14 @@ $root.Data = (function() {
     Data.prototype.velocity = null;
 
     /**
+     * Data atmosphere.
+     * @member {(IAtmosphere|null|undefined)}atmosphere
+     * @memberof Data
+     * @instance
+     */
+    Data.prototype.atmosphere = null;
+
+    /**
      * Data custom.
      * @member {Array.<ICustom>}custom
      * @memberof Data
@@ -383,6 +392,8 @@ $root.Data = (function() {
             $root.Signal.encode(message.signal, writer.uint32(/* id 25, wireType 2 =*/202).fork()).ldelim();
         if (message.velocity != null && message.hasOwnProperty("velocity"))
             $root.Velocity.encode(message.velocity, writer.uint32(/* id 26, wireType 2 =*/210).fork()).ldelim();
+        if (message.atmosphere != null && message.hasOwnProperty("atmosphere"))
+            $root.Atmosphere.encode(message.atmosphere, writer.uint32(/* id 31, wireType 2 =*/250).fork()).ldelim();
         if (message.custom != null && message.custom.length)
             for (var i = 0; i < message.custom.length; ++i)
                 $root.Custom.encode(message.custom[i], writer.uint32(/* id 99, wireType 2 =*/794).fork()).ldelim();
@@ -440,6 +451,9 @@ $root.Data = (function() {
                 break;
             case 26:
                 message.velocity = $root.Velocity.decode(reader, reader.uint32());
+                break;
+            case 31:
+                message.atmosphere = $root.Atmosphere.decode(reader, reader.uint32());
                 break;
             case 99:
                 if (!(message.custom && message.custom.length))
@@ -516,6 +530,11 @@ $root.Data = (function() {
             if (error)
                 return "velocity." + error;
         }
+        if (message.atmosphere != null && message.hasOwnProperty("atmosphere")) {
+            error = $root.Atmosphere.verify(message.atmosphere);
+            if (error)
+                return "atmosphere." + error;
+        }
         if (message.custom != null && message.hasOwnProperty("custom")) {
             if (!Array.isArray(message.custom))
                 return "custom: array expected";
@@ -575,6 +594,11 @@ $root.Data = (function() {
                 throw TypeError(".Data.velocity: object expected");
             message.velocity = $root.Velocity.fromObject(object.velocity);
         }
+        if (object.atmosphere != null) {
+            if (typeof object.atmosphere !== "object")
+                throw TypeError(".Data.atmosphere: object expected");
+            message.atmosphere = $root.Atmosphere.fromObject(object.atmosphere);
+        }
         if (object.custom) {
             if (!Array.isArray(object.custom))
                 throw TypeError(".Data.custom: array expected");
@@ -611,6 +635,7 @@ $root.Data = (function() {
             object.gnss = null;
             object.signal = null;
             object.velocity = null;
+            object.atmosphere = null;
         }
         if (message.gateway != null && message.hasOwnProperty("gateway"))
             object.gateway = $root.Gateway.toObject(message.gateway, options);
@@ -626,6 +651,8 @@ $root.Data = (function() {
             object.signal = $root.Signal.toObject(message.signal, options);
         if (message.velocity != null && message.hasOwnProperty("velocity"))
             object.velocity = $root.Velocity.toObject(message.velocity, options);
+        if (message.atmosphere != null && message.hasOwnProperty("atmosphere"))
+            object.atmosphere = $root.Atmosphere.toObject(message.atmosphere, options);
         if (message.custom && message.custom.length) {
             object.custom = [];
             for (var j = 0; j < message.custom.length; ++j)
@@ -3158,6 +3185,379 @@ $root.Velocity = (function() {
     };
 
     return Velocity;
+})();
+
+$root.Atmosphere = (function() {
+
+    /**
+     * Properties of an Atmosphere.
+     * @exports IAtmosphere
+     * @interface IAtmosphere
+     * @property {number} [pm25] PM2.5
+     * desc: PM2.5浓度
+     * range: [0, +∞)
+     * @property {number} [co] 一氧化碳
+     * desc: 一氧化碳浓度
+     * range: [0, +∞)
+     * @property {number} [so2] 二氧化硫
+     * desc: 二氧化硫浓度
+     * range: [0, +∞)
+     * @property {number} [no2] 二氧化氮
+     * desc: 二氧化氮浓度
+     * range: [0, +∞)
+     * @property {number} [o3] 臭氧
+     * desc: 臭氧浓度
+     * range: [0, +∞)
+     * @property {number} [temperature] 温度
+     * desc: 温度
+     * range: (-∞, +∞)
+     * @property {number} [humidity] 湿度
+     * desc: 湿度
+     * range: [0, +∞)
+     * @property {number} [pm10] PM10
+     * desc: PM1.0浓度
+     * range: [0, +∞)
+     */
+
+    /**
+     * Constructs a new Atmosphere.
+     * @exports Atmosphere
+     * @classdesc Represents an Atmosphere.
+     * @constructor
+     * @param {IAtmosphere=} [properties] Properties to set
+     */
+    function Atmosphere(properties) {
+        if (properties)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                if (properties[keys[i]] != null)
+                    this[keys[i]] = properties[keys[i]];
+    }
+
+    /**
+     * PM2.5
+     * desc: PM2.5浓度
+     * range: [0, +∞)
+     * @member {number}pm25
+     * @memberof Atmosphere
+     * @instance
+     */
+    Atmosphere.prototype.pm25 = 0;
+
+    /**
+     * 一氧化碳
+     * desc: 一氧化碳浓度
+     * range: [0, +∞)
+     * @member {number}co
+     * @memberof Atmosphere
+     * @instance
+     */
+    Atmosphere.prototype.co = 0;
+
+    /**
+     * 二氧化硫
+     * desc: 二氧化硫浓度
+     * range: [0, +∞)
+     * @member {number}so2
+     * @memberof Atmosphere
+     * @instance
+     */
+    Atmosphere.prototype.so2 = 0;
+
+    /**
+     * 二氧化氮
+     * desc: 二氧化氮浓度
+     * range: [0, +∞)
+     * @member {number}no2
+     * @memberof Atmosphere
+     * @instance
+     */
+    Atmosphere.prototype.no2 = 0;
+
+    /**
+     * 臭氧
+     * desc: 臭氧浓度
+     * range: [0, +∞)
+     * @member {number}o3
+     * @memberof Atmosphere
+     * @instance
+     */
+    Atmosphere.prototype.o3 = 0;
+
+    /**
+     * 温度
+     * desc: 温度
+     * range: (-∞, +∞)
+     * @member {number}temperature
+     * @memberof Atmosphere
+     * @instance
+     */
+    Atmosphere.prototype.temperature = 0;
+
+    /**
+     * 湿度
+     * desc: 湿度
+     * range: [0, +∞)
+     * @member {number}humidity
+     * @memberof Atmosphere
+     * @instance
+     */
+    Atmosphere.prototype.humidity = 0;
+
+    /**
+     * PM10
+     * desc: PM1.0浓度
+     * range: [0, +∞)
+     * @member {number}pm10
+     * @memberof Atmosphere
+     * @instance
+     */
+    Atmosphere.prototype.pm10 = 0;
+
+    /**
+     * Creates a new Atmosphere instance using the specified properties.
+     * @function create
+     * @memberof Atmosphere
+     * @static
+     * @param {IAtmosphere=} [properties] Properties to set
+     * @returns {Atmosphere} Atmosphere instance
+     */
+    Atmosphere.create = function create(properties) {
+        return new Atmosphere(properties);
+    };
+
+    /**
+     * Encodes the specified Atmosphere message. Does not implicitly {@link Atmosphere.verify|verify} messages.
+     * @function encode
+     * @memberof Atmosphere
+     * @static
+     * @param {IAtmosphere} message Atmosphere message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    Atmosphere.encode = function encode(message, writer) {
+        if (!writer)
+            writer = $Writer.create();
+        if (message.pm25 != null && message.hasOwnProperty("pm25"))
+            writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.pm25);
+        if (message.co != null && message.hasOwnProperty("co"))
+            writer.uint32(/* id 2, wireType 1 =*/17).double(message.co);
+        if (message.so2 != null && message.hasOwnProperty("so2"))
+            writer.uint32(/* id 3, wireType 1 =*/25).double(message.so2);
+        if (message.no2 != null && message.hasOwnProperty("no2"))
+            writer.uint32(/* id 4, wireType 1 =*/33).double(message.no2);
+        if (message.o3 != null && message.hasOwnProperty("o3"))
+            writer.uint32(/* id 5, wireType 1 =*/41).double(message.o3);
+        if (message.temperature != null && message.hasOwnProperty("temperature"))
+            writer.uint32(/* id 6, wireType 1 =*/49).double(message.temperature);
+        if (message.humidity != null && message.hasOwnProperty("humidity"))
+            writer.uint32(/* id 7, wireType 1 =*/57).double(message.humidity);
+        if (message.pm10 != null && message.hasOwnProperty("pm10"))
+            writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.pm10);
+        return writer;
+    };
+
+    /**
+     * Encodes the specified Atmosphere message, length delimited. Does not implicitly {@link Atmosphere.verify|verify} messages.
+     * @function encodeDelimited
+     * @memberof Atmosphere
+     * @static
+     * @param {IAtmosphere} message Atmosphere message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    Atmosphere.encodeDelimited = function encodeDelimited(message, writer) {
+        return this.encode(message, writer).ldelim();
+    };
+
+    /**
+     * Decodes an Atmosphere message from the specified reader or buffer.
+     * @function decode
+     * @memberof Atmosphere
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @param {number} [length] Message length if known beforehand
+     * @returns {Atmosphere} Atmosphere
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    Atmosphere.decode = function decode(reader, length) {
+        if (!(reader instanceof $Reader))
+            reader = $Reader.create(reader);
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.Atmosphere();
+        while (reader.pos < end) {
+            var tag = reader.uint32();
+            switch (tag >>> 3) {
+            case 1:
+                message.pm25 = reader.uint32();
+                break;
+            case 2:
+                message.co = reader.double();
+                break;
+            case 3:
+                message.so2 = reader.double();
+                break;
+            case 4:
+                message.no2 = reader.double();
+                break;
+            case 5:
+                message.o3 = reader.double();
+                break;
+            case 6:
+                message.temperature = reader.double();
+                break;
+            case 7:
+                message.humidity = reader.double();
+                break;
+            case 8:
+                message.pm10 = reader.uint32();
+                break;
+            default:
+                reader.skipType(tag & 7);
+                break;
+            }
+        }
+        return message;
+    };
+
+    /**
+     * Decodes an Atmosphere message from the specified reader or buffer, length delimited.
+     * @function decodeDelimited
+     * @memberof Atmosphere
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @returns {Atmosphere} Atmosphere
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    Atmosphere.decodeDelimited = function decodeDelimited(reader) {
+        if (!(reader instanceof $Reader))
+            reader = new $Reader(reader);
+        return this.decode(reader, reader.uint32());
+    };
+
+    /**
+     * Verifies an Atmosphere message.
+     * @function verify
+     * @memberof Atmosphere
+     * @static
+     * @param {Object.<string,*>} message Plain object to verify
+     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+     */
+    Atmosphere.verify = function verify(message) {
+        if (typeof message !== "object" || message === null)
+            return "object expected";
+        if (message.pm25 != null && message.hasOwnProperty("pm25"))
+            if (!$util.isInteger(message.pm25))
+                return "pm25: integer expected";
+        if (message.co != null && message.hasOwnProperty("co"))
+            if (typeof message.co !== "number")
+                return "co: number expected";
+        if (message.so2 != null && message.hasOwnProperty("so2"))
+            if (typeof message.so2 !== "number")
+                return "so2: number expected";
+        if (message.no2 != null && message.hasOwnProperty("no2"))
+            if (typeof message.no2 !== "number")
+                return "no2: number expected";
+        if (message.o3 != null && message.hasOwnProperty("o3"))
+            if (typeof message.o3 !== "number")
+                return "o3: number expected";
+        if (message.temperature != null && message.hasOwnProperty("temperature"))
+            if (typeof message.temperature !== "number")
+                return "temperature: number expected";
+        if (message.humidity != null && message.hasOwnProperty("humidity"))
+            if (typeof message.humidity !== "number")
+                return "humidity: number expected";
+        if (message.pm10 != null && message.hasOwnProperty("pm10"))
+            if (!$util.isInteger(message.pm10))
+                return "pm10: integer expected";
+        return null;
+    };
+
+    /**
+     * Creates an Atmosphere message from a plain object. Also converts values to their respective internal types.
+     * @function fromObject
+     * @memberof Atmosphere
+     * @static
+     * @param {Object.<string,*>} object Plain object
+     * @returns {Atmosphere} Atmosphere
+     */
+    Atmosphere.fromObject = function fromObject(object) {
+        if (object instanceof $root.Atmosphere)
+            return object;
+        var message = new $root.Atmosphere();
+        if (object.pm25 != null)
+            message.pm25 = object.pm25 >>> 0;
+        if (object.co != null)
+            message.co = Number(object.co);
+        if (object.so2 != null)
+            message.so2 = Number(object.so2);
+        if (object.no2 != null)
+            message.no2 = Number(object.no2);
+        if (object.o3 != null)
+            message.o3 = Number(object.o3);
+        if (object.temperature != null)
+            message.temperature = Number(object.temperature);
+        if (object.humidity != null)
+            message.humidity = Number(object.humidity);
+        if (object.pm10 != null)
+            message.pm10 = object.pm10 >>> 0;
+        return message;
+    };
+
+    /**
+     * Creates a plain object from an Atmosphere message. Also converts values to other types if specified.
+     * @function toObject
+     * @memberof Atmosphere
+     * @static
+     * @param {Atmosphere} message Atmosphere
+     * @param {$protobuf.IConversionOptions} [options] Conversion options
+     * @returns {Object.<string,*>} Plain object
+     */
+    Atmosphere.toObject = function toObject(message, options) {
+        if (!options)
+            options = {};
+        var object = {};
+        if (options.defaults) {
+            object.pm25 = 0;
+            object.co = 0;
+            object.so2 = 0;
+            object.no2 = 0;
+            object.o3 = 0;
+            object.temperature = 0;
+            object.humidity = 0;
+            object.pm10 = 0;
+        }
+        if (message.pm25 != null && message.hasOwnProperty("pm25"))
+            object.pm25 = message.pm25;
+        if (message.co != null && message.hasOwnProperty("co"))
+            object.co = options.json && !isFinite(message.co) ? String(message.co) : message.co;
+        if (message.so2 != null && message.hasOwnProperty("so2"))
+            object.so2 = options.json && !isFinite(message.so2) ? String(message.so2) : message.so2;
+        if (message.no2 != null && message.hasOwnProperty("no2"))
+            object.no2 = options.json && !isFinite(message.no2) ? String(message.no2) : message.no2;
+        if (message.o3 != null && message.hasOwnProperty("o3"))
+            object.o3 = options.json && !isFinite(message.o3) ? String(message.o3) : message.o3;
+        if (message.temperature != null && message.hasOwnProperty("temperature"))
+            object.temperature = options.json && !isFinite(message.temperature) ? String(message.temperature) : message.temperature;
+        if (message.humidity != null && message.hasOwnProperty("humidity"))
+            object.humidity = options.json && !isFinite(message.humidity) ? String(message.humidity) : message.humidity;
+        if (message.pm10 != null && message.hasOwnProperty("pm10"))
+            object.pm10 = message.pm10;
+        return object;
+    };
+
+    /**
+     * Converts this Atmosphere to JSON.
+     * @function toJSON
+     * @memberof Atmosphere
+     * @instance
+     * @returns {Object.<string,*>} JSON object
+     */
+    Atmosphere.prototype.toJSON = function toJSON() {
+        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+    };
+
+    return Atmosphere;
 })();
 
 module.exports = $root;

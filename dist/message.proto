@@ -16,6 +16,7 @@ message Data {
     GNSS gnss = 24;
     Signal signal = 25;
     Velocity velocity = 26;
+    Atmosphere atmosphere = 31;
     repeated Custom custom = 99;
 }
 
@@ -104,4 +105,16 @@ message Velocity {
     float x = 1;
     float y = 2;
     float z = 3;
+}
+
+message Atmosphere {
+
+    uint32 pm25 = 1;
+    double co = 2;
+    double so2 = 3;
+    double no2 = 4;
+    double o3 = 5;
+    double temperature = 6;
+    double humidity = 7;
+    uint32 pm10 = 8;
 }

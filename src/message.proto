@@ -10,6 +10,7 @@ import "vehicle/dronestatus.proto";
 import "vehicle/gnss.proto";
 import "vehicle/signal.proto";
 import "vehicle/velocity.proto";
+import "sensor/atmosphere.proto";
 
 // 消息报文
 message Message {
@@ -33,6 +34,7 @@ message Data {
   Velocity velocity = 26; // 无人机状态
   
   // 3 传感器
+  Atmosphere atmosphere = 31; // 大气传感器
 
   // 自定义数据
   repeated Custom custom = 99;

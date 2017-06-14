@@ -25,6 +25,7 @@ message Data {
     GNSS gnss = 24;
     Signal signal = 25;
     Velocity velocity = 26;
+    Atmosphere atmosphere = 31;
     repeated Custom custom = 99;
 }
 
@@ -114,6 +115,18 @@ message Velocity {
     float y = 2;
     float z = 3;
 }
+
+message Atmosphere {
+
+    uint32 pm25 = 1;
+    double co = 2;
+    double so2 = 3;
+    double no2 = 4;
+    double o3 = 5;
+    double temperature = 6;
+    double humidity = 7;
+    uint32 pm10 = 8;
+}
 ```
 
 ## 目录结构
@@ -123,6 +136,7 @@ message Velocity {
   - base.proto # 网关数据
 - message.proto # 消息报文
 - sensor
+  - atmosphere.proto # 大气传感器
 - vehicle
   - attitude.proto # 姿态传感器
   - battery.proto # 电池传感器

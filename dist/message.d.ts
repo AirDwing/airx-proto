@@ -126,6 +126,9 @@ export interface IData {
     /** Data velocity */
     velocity?: IVelocity;
 
+    /** Data atmosphere */
+    atmosphere?: IAtmosphere;
+
     /** Data custom */
     custom?: ICustom[];
 }
@@ -159,6 +162,9 @@ export class Data {
 
     /** Data velocity. */
     public velocity?: (IVelocity|null);
+
+    /** Data atmosphere. */
+    public atmosphere?: (IAtmosphere|null);
 
     /** Data custom. */
     public custom: ICustom[];
@@ -1462,6 +1468,202 @@ export class Velocity {
 
     /**
      * Converts this Velocity to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Properties of an Atmosphere. */
+export interface IAtmosphere {
+
+    /**
+     * PM2.5
+     * desc: PM2.5浓度
+     * range: [0, +∞)
+     */
+    pm25?: number;
+
+    /**
+     * 一氧化碳
+     * desc: 一氧化碳浓度
+     * range: [0, +∞)
+     */
+    co?: number;
+
+    /**
+     * 二氧化硫
+     * desc: 二氧化硫浓度
+     * range: [0, +∞)
+     */
+    so2?: number;
+
+    /**
+     * 二氧化氮
+     * desc: 二氧化氮浓度
+     * range: [0, +∞)
+     */
+    no2?: number;
+
+    /**
+     * 臭氧
+     * desc: 臭氧浓度
+     * range: [0, +∞)
+     */
+    o3?: number;
+
+    /**
+     * 温度
+     * desc: 温度
+     * range: (-∞, +∞)
+     */
+    temperature?: number;
+
+    /**
+     * 湿度
+     * desc: 湿度
+     * range: [0, +∞)
+     */
+    humidity?: number;
+
+    /**
+     * PM10
+     * desc: PM1.0浓度
+     * range: [0, +∞)
+     */
+    pm10?: number;
+}
+
+/** Represents an Atmosphere. */
+export class Atmosphere {
+
+    /**
+     * Constructs a new Atmosphere.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IAtmosphere);
+
+    /**
+     * PM2.5
+     * desc: PM2.5浓度
+     * range: [0, +∞)
+     */
+    public pm25: number;
+
+    /**
+     * 一氧化碳
+     * desc: 一氧化碳浓度
+     * range: [0, +∞)
+     */
+    public co: number;
+
+    /**
+     * 二氧化硫
+     * desc: 二氧化硫浓度
+     * range: [0, +∞)
+     */
+    public so2: number;
+
+    /**
+     * 二氧化氮
+     * desc: 二氧化氮浓度
+     * range: [0, +∞)
+     */
+    public no2: number;
+
+    /**
+     * 臭氧
+     * desc: 臭氧浓度
+     * range: [0, +∞)
+     */
+    public o3: number;
+
+    /**
+     * 温度
+     * desc: 温度
+     * range: (-∞, +∞)
+     */
+    public temperature: number;
+
+    /**
+     * 湿度
+     * desc: 湿度
+     * range: [0, +∞)
+     */
+    public humidity: number;
+
+    /**
+     * PM10
+     * desc: PM1.0浓度
+     * range: [0, +∞)
+     */
+    public pm10: number;
+
+    /**
+     * Creates a new Atmosphere instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns Atmosphere instance
+     */
+    public static create(properties?: IAtmosphere): Atmosphere;
+
+    /**
+     * Encodes the specified Atmosphere message. Does not implicitly {@link Atmosphere.verify|verify} messages.
+     * @param message Atmosphere message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IAtmosphere, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified Atmosphere message, length delimited. Does not implicitly {@link Atmosphere.verify|verify} messages.
+     * @param message Atmosphere message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IAtmosphere, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes an Atmosphere message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns Atmosphere
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Atmosphere;
+
+    /**
+     * Decodes an Atmosphere message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns Atmosphere
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Atmosphere;
+
+    /**
+     * Verifies an Atmosphere message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates an Atmosphere message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns Atmosphere
+     */
+    public static fromObject(object: { [k: string]: any }): Atmosphere;
+
+    /**
+     * Creates a plain object from an Atmosphere message. Also converts values to other types if specified.
+     * @param message Atmosphere
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: Atmosphere, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this Atmosphere to JSON.
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
