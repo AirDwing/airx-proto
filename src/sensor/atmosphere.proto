@@ -14,42 +14,42 @@ message Atmosphere {
    * desc: 一氧化碳浓度
    * range: [0, +∞)
    */
-  double co = 2;
+  uint32 co = 2;
   
   /**
    * 二氧化硫
    * desc: 二氧化硫浓度
    * range: [0, +∞)
    */
-  double so2 = 3;
+  uint32 so2 = 3;
   
   /**
    * 二氧化氮
    * desc: 二氧化氮浓度
    * range: [0, +∞)
    */
-  double no2 = 4;
+  uint32 no2 = 4;
   
   /**
    * 臭氧
    * desc: 臭氧浓度
    * range: [0, +∞)
    */
-  double o3 = 5;
+  uint32 o3 = 5;
   
   /**
    * 温度
    * desc: 温度
    * range: (-∞, +∞)
    */
-  double temperature = 6;
+  int32 temperature = 6;
   
   /**
    * 湿度
    * desc: 湿度
-   * range: [0, +∞)
+   * range: [0, 100]
    */
-  double humidity = 7;
+  uint32 humidity = 7;
   
   /**
    * PM10

@@ -3213,7 +3213,7 @@ $root.Atmosphere = (function() {
      * range: (-∞, +∞)
      * @property {number} [humidity] 湿度
      * desc: 湿度
-     * range: [0, +∞)
+     * range: [0, 100]
      * @property {number} [pm10] PM10
      * desc: PM1.0浓度
      * range: [0, +∞)
@@ -3296,7 +3296,7 @@ $root.Atmosphere = (function() {
     /**
      * 湿度
      * desc: 湿度
-     * range: [0, +∞)
+     * range: [0, 100]
      * @member {number}humidity
      * @memberof Atmosphere
      * @instance
@@ -3340,17 +3340,17 @@ $root.Atmosphere = (function() {
         if (message.pm25 != null && message.hasOwnProperty("pm25"))
             writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.pm25);
         if (message.co != null && message.hasOwnProperty("co"))
-            writer.uint32(/* id 2, wireType 1 =*/17).double(message.co);
+            writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.co);
         if (message.so2 != null && message.hasOwnProperty("so2"))
-            writer.uint32(/* id 3, wireType 1 =*/25).double(message.so2);
+            writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.so2);
         if (message.no2 != null && message.hasOwnProperty("no2"))
-            writer.uint32(/* id 4, wireType 1 =*/33).double(message.no2);
+            writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.no2);
         if (message.o3 != null && message.hasOwnProperty("o3"))
-            writer.uint32(/* id 5, wireType 1 =*/41).double(message.o3);
+            writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.o3);
         if (message.temperature != null && message.hasOwnProperty("temperature"))
-            writer.uint32(/* id 6, wireType 1 =*/49).double(message.temperature);
+            writer.uint32(/* id 6, wireType 0 =*/48).int32(message.temperature);
         if (message.humidity != null && message.hasOwnProperty("humidity"))
-            writer.uint32(/* id 7, wireType 1 =*/57).double(message.humidity);
+            writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.humidity);
         if (message.pm10 != null && message.hasOwnProperty("pm10"))
             writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.pm10);
         return writer;
@@ -3391,22 +3391,22 @@ $root.Atmosphere = (function() {
                 message.pm25 = reader.uint32();
                 break;
             case 2:
-                message.co = reader.double();
+                message.co = reader.uint32();
                 break;
             case 3:
-                message.so2 = reader.double();
+                message.so2 = reader.uint32();
                 break;
             case 4:
-                message.no2 = reader.double();
+                message.no2 = reader.uint32();
                 break;
             case 5:
-                message.o3 = reader.double();
+                message.o3 = reader.uint32();
                 break;
             case 6:
-                message.temperature = reader.double();
+                message.temperature = reader.int32();
                 break;
             case 7:
-                message.humidity = reader.double();
+                message.humidity = reader.uint32();
                 break;
             case 8:
                 message.pm10 = reader.uint32();
@@ -3450,23 +3450,23 @@ $root.Atmosphere = (function() {
             if (!$util.isInteger(message.pm25))
                 return "pm25: integer expected";
         if (message.co != null && message.hasOwnProperty("co"))
-            if (typeof message.co !== "number")
-                return "co: number expected";
+            if (!$util.isInteger(message.co))
+                return "co: integer expected";
         if (message.so2 != null && message.hasOwnProperty("so2"))
-            if (typeof message.so2 !== "number")
-                return "so2: number expected";
+            if (!$util.isInteger(message.so2))
+                return "so2: integer expected";
         if (message.no2 != null && message.hasOwnProperty("no2"))
-            if (typeof message.no2 !== "number")
-                return "no2: number expected";
+            if (!$util.isInteger(message.no2))
+                return "no2: integer expected";
         if (message.o3 != null && message.hasOwnProperty("o3"))
-            if (typeof message.o3 !== "number")
-                return "o3: number expected";
+            if (!$util.isInteger(message.o3))
+                return "o3: integer expected";
         if (message.temperature != null && message.hasOwnProperty("temperature"))
-            if (typeof message.temperature !== "number")
-                return "temperature: number expected";
+            if (!$util.isInteger(message.temperature))
+                return "temperature: integer expected";
         if (message.humidity != null && message.hasOwnProperty("humidity"))
-            if (typeof message.humidity !== "number")
-                return "humidity: number expected";
+            if (!$util.isInteger(message.humidity))
+                return "humidity: integer expected";
         if (message.pm10 != null && message.hasOwnProperty("pm10"))
             if (!$util.isInteger(message.pm10))
                 return "pm10: integer expected";
@@ -3488,17 +3488,17 @@ $root.Atmosphere = (function() {
         if (object.pm25 != null)
             message.pm25 = object.pm25 >>> 0;
         if (object.co != null)
-            message.co = Number(object.co);
+            message.co = object.co >>> 0;
         if (object.so2 != null)
-            message.so2 = Number(object.so2);
+            message.so2 = object.so2 >>> 0;
         if (object.no2 != null)
-            message.no2 = Number(object.no2);
+            message.no2 = object.no2 >>> 0;
         if (object.o3 != null)
-            message.o3 = Number(object.o3);
+            message.o3 = object.o3 >>> 0;
         if (object.temperature != null)
-            message.temperature = Number(object.temperature);
+            message.temperature = object.temperature | 0;
         if (object.humidity != null)
-            message.humidity = Number(object.humidity);
+            message.humidity = object.humidity >>> 0;
         if (object.pm10 != null)
             message.pm10 = object.pm10 >>> 0;
         return message;
@@ -3530,17 +3530,17 @@ $root.Atmosphere = (function() {
         if (message.pm25 != null && message.hasOwnProperty("pm25"))
             object.pm25 = message.pm25;
         if (message.co != null && message.hasOwnProperty("co"))
-            object.co = options.json && !isFinite(message.co) ? String(message.co) : message.co;
+            object.co = message.co;
         if (message.so2 != null && message.hasOwnProperty("so2"))
-            object.so2 = options.json && !isFinite(message.so2) ? String(message.so2) : message.so2;
+            object.so2 = message.so2;
         if (message.no2 != null && message.hasOwnProperty("no2"))
-            object.no2 = options.json && !isFinite(message.no2) ? String(message.no2) : message.no2;
+            object.no2 = message.no2;
         if (message.o3 != null && message.hasOwnProperty("o3"))
-            object.o3 = options.json && !isFinite(message.o3) ? String(message.o3) : message.o3;
+            object.o3 = message.o3;
         if (message.temperature != null && message.hasOwnProperty("temperature"))
-            object.temperature = options.json && !isFinite(message.temperature) ? String(message.temperature) : message.temperature;
+            object.temperature = message.temperature;
         if (message.humidity != null && message.hasOwnProperty("humidity"))
-            object.humidity = options.json && !isFinite(message.humidity) ? String(message.humidity) : message.humidity;
+            object.humidity = message.humidity;
         if (message.pm10 != null && message.hasOwnProperty("pm10"))
             object.pm10 = message.pm10;
         return object;

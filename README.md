@@ -119,12 +119,12 @@ message Velocity {
 message Atmosphere {
 
     uint32 pm25 = 1;
-    double co = 2;
-    double so2 = 3;
-    double no2 = 4;
-    double o3 = 5;
-    double temperature = 6;
-    double humidity = 7;
+    uint32 co = 2;
+    uint32 so2 = 3;
+    uint32 no2 = 4;
+    uint32 o3 = 5;
+    int32 temperature = 6;
+    uint32 humidity = 7;
     uint32 pm10 = 8;
 }
 ```

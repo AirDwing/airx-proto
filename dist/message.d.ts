@@ -1521,7 +1521,7 @@ export interface IAtmosphere {
     /**
      * 湿度
      * desc: 湿度
-     * range: [0, +∞)
+     * range: [0, 100]
      */
     humidity?: number;
 
@@ -1587,7 +1587,7 @@ export class Atmosphere {
     /**
      * 湿度
      * desc: 湿度
-     * range: [0, +∞)
+     * range: [0, 100]
      */
     public humidity: number;
 
