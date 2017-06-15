@@ -2601,20 +2601,8 @@ $root.Signal = (function() {
      * Properties of a Signal.
      * @exports ISignal
      * @interface ISignal
-     * @property {number} [percent] 信号强度
-     * desc: 信号强度百分比
-     * unit: %
-     * range: [0, 100]
-     * @property {Signal.Type} [type] 类型
-     * desc: 连接方式类型
-     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
-     * @property {string} [protocal] 协议
-     * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
-     * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
-     * @property {number} [rssi] RSSI
-     * desc: 接收信号强度指示
-     * unit: dBm
-     * range: (-∞, 0]
+     * @property {Signal.ISignalBase} [data] 数据信号
+     * @property {Signal.ISignalBase} [image] 图像信号
      */
 
     /**
@@ -2632,46 +2620,20 @@ $root.Signal = (function() {
     }
 
     /**
-     * 信号强度
-     * desc: 信号强度百分比
-     * unit: %
-     * range: [0, 100]
-     * @member {number}percent
+     * 数据信号
+     * @member {(Signal.ISignalBase|null|undefined)}data
      * @memberof Signal
      * @instance
      */
-    Signal.prototype.percent = 0;
+    Signal.prototype.data = null;
 
     /**
-     * 类型
-     * desc: 连接方式类型
-     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
-     * @member {Signal.Type}type
+     * 图像信号
+     * @member {(Signal.ISignalBase|null|undefined)}image
      * @memberof Signal
      * @instance
      */
-    Signal.prototype.type = 0;
-
-    /**
-     * 协议
-     * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
-     * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
-     * @member {string}protocal
-     * @memberof Signal
-     * @instance
-     */
-    Signal.prototype.protocal = "";
-
-    /**
-     * RSSI
-     * desc: 接收信号强度指示
-     * unit: dBm
-     * range: (-∞, 0]
-     * @member {number}rssi
-     * @memberof Signal
-     * @instance
-     */
-    Signal.prototype.rssi = 0;
+    Signal.prototype.image = null;
 
     /**
      * Creates a new Signal instance using the specified properties.
@@ -2697,14 +2659,10 @@ $root.Signal = (function() {
     Signal.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.percent != null && message.hasOwnProperty("percent"))
-            writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.percent);
-        if (message.type != null && message.hasOwnProperty("type"))
-            writer.uint32(/* id 2, wireType 0 =*/16).int32(message.type);
-        if (message.protocal != null && message.hasOwnProperty("protocal"))
-            writer.uint32(/* id 3, wireType 2 =*/26).string(message.protocal);
-        if (message.rssi != null && message.hasOwnProperty("rssi"))
-            writer.uint32(/* id 4, wireType 0 =*/32).int32(message.rssi);
+        if (message.data != null && message.hasOwnProperty("data"))
+            $root.Signal.SignalBase.encode(message.data, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+        if (message.image != null && message.hasOwnProperty("image"))
+            $root.Signal.SignalBase.encode(message.image, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
         return writer;
     };
 
@@ -2740,16 +2698,10 @@ $root.Signal = (function() {
             var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
-                message.percent = reader.uint32();
+                message.data = $root.Signal.SignalBase.decode(reader, reader.uint32());
                 break;
             case 2:
-                message.type = reader.int32();
-                break;
-            case 3:
-                message.protocal = reader.string();
-                break;
-            case 4:
-                message.rssi = reader.int32();
+                message.image = $root.Signal.SignalBase.decode(reader, reader.uint32());
                 break;
             default:
                 reader.skipType(tag & 7);
@@ -2786,29 +2738,16 @@ $root.Signal = (function() {
     Signal.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
-        if (message.percent != null && message.hasOwnProperty("percent"))
-            if (!$util.isInteger(message.percent))
-                return "percent: integer expected";
-        if (message.type != null && message.hasOwnProperty("type"))
-            switch (message.type) {
-            default:
-                return "type: enum value expected";
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-                break;
-            }
-        if (message.protocal != null && message.hasOwnProperty("protocal"))
-            if (!$util.isString(message.protocal))
-                return "protocal: string expected";
-        if (message.rssi != null && message.hasOwnProperty("rssi"))
-            if (!$util.isInteger(message.rssi))
-                return "rssi: integer expected";
+        if (message.data != null && message.hasOwnProperty("data")) {
+            var error = $root.Signal.SignalBase.verify(message.data);
+            if (error)
+                return "data." + error;
+        }
+        if (message.image != null && message.hasOwnProperty("image")) {
+            error = $root.Signal.SignalBase.verify(message.image);
+            if (error)
+                return "image." + error;
+        }
         return null;
     };
 
@@ -2824,46 +2763,16 @@ $root.Signal = (function() {
         if (object instanceof $root.Signal)
             return object;
         var message = new $root.Signal();
-        if (object.percent != null)
-            message.percent = object.percent >>> 0;
-        switch (object.type) {
-        case "UNDEFINED":
-        case 0:
-            message.type = 0;
-            break;
-        case "OTHER":
-        case 1:
-            message.type = 1;
-            break;
-        case "TELE2G":
-        case 2:
-            message.type = 2;
-            break;
-        case "TELE3G":
-        case 3:
-            message.type = 3;
-            break;
-        case "TELE4G":
-        case 4:
-            message.type = 4;
-            break;
-        case "TELE5G":
-        case 5:
-            message.type = 5;
-            break;
-        case "BAND24GHZ":
-        case 6:
-            message.type = 6;
-            break;
-        case "BAND58GHZ":
-        case 7:
-            message.type = 7;
-            break;
+        if (object.data != null) {
+            if (typeof object.data !== "object")
+                throw TypeError(".Signal.data: object expected");
+            message.data = $root.Signal.SignalBase.fromObject(object.data);
         }
-        if (object.protocal != null)
-            message.protocal = String(object.protocal);
-        if (object.rssi != null)
-            message.rssi = object.rssi | 0;
+        if (object.image != null) {
+            if (typeof object.image !== "object")
+                throw TypeError(".Signal.image: object expected");
+            message.image = $root.Signal.SignalBase.fromObject(object.image);
+        }
         return message;
     };
 
@@ -2881,19 +2790,13 @@ $root.Signal = (function() {
             options = {};
         var object = {};
         if (options.defaults) {
-            object.percent = 0;
-            object.type = options.enums === String ? "UNDEFINED" : 0;
-            object.protocal = "";
-            object.rssi = 0;
+            object.data = null;
+            object.image = null;
         }
-        if (message.percent != null && message.hasOwnProperty("percent"))
-            object.percent = message.percent;
-        if (message.type != null && message.hasOwnProperty("type"))
-            object.type = options.enums === String ? $root.Signal.Type[message.type] : message.type;
-        if (message.protocal != null && message.hasOwnProperty("protocal"))
-            object.protocal = message.protocal;
-        if (message.rssi != null && message.hasOwnProperty("rssi"))
-            object.rssi = message.rssi;
+        if (message.data != null && message.hasOwnProperty("data"))
+            object.data = $root.Signal.SignalBase.toObject(message.data, options);
+        if (message.image != null && message.hasOwnProperty("image"))
+            object.image = $root.Signal.SignalBase.toObject(message.image, options);
         return object;
     };
 
@@ -2908,37 +2811,353 @@ $root.Signal = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
-    /**
-     * 枚举类型说明:
-     * 未知(默认值): UNDEFINED
-     * 其他类型: OTHER
-     * 2G: TELE2G
-     * 3G: TELE3G
-     * 4G: TELE4G
-     * 5G: TELE5G
-     * 2.4GHz: BAND24GHZ
-     * 5.8GHz: BAND58GHZ
-     * @enum {string}
-     * @property {number} UNDEFINED=0 UNDEFINED value
-     * @property {number} OTHER=1 OTHER value
-     * @property {number} TELE2G=2 TELE2G value
-     * @property {number} TELE3G=3 TELE3G value
-     * @property {number} TELE4G=4 TELE4G value
-     * @property {number} TELE5G=5 TELE5G value
-     * @property {number} BAND24GHZ=6 BAND24GHZ value
-     * @property {number} BAND58GHZ=7 BAND58GHZ value
-     */
-    Signal.Type = (function() {
-        var valuesById = {}, values = Object.create(valuesById);
-        values[valuesById[0] = "UNDEFINED"] = 0;
-        values[valuesById[1] = "OTHER"] = 1;
-        values[valuesById[2] = "TELE2G"] = 2;
-        values[valuesById[3] = "TELE3G"] = 3;
-        values[valuesById[4] = "TELE4G"] = 4;
-        values[valuesById[5] = "TELE5G"] = 5;
-        values[valuesById[6] = "BAND24GHZ"] = 6;
-        values[valuesById[7] = "BAND58GHZ"] = 7;
-        return values;
+    Signal.SignalBase = (function() {
+
+        /**
+         * Properties of a SignalBase.
+         * @memberof Signal
+         * @interface ISignalBase
+         * @property {number} [percent] 信号强度
+         * desc: 信号强度百分比
+         * unit: %
+         * range: [0, 100]
+         * @property {Signal.SignalBase.Type} [type] 类型
+         * desc: 连接方式类型
+         * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
+         * @property {string} [protocal] 协议
+         * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
+         * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
+         * @property {number} [rssi] RSSI
+         * desc: 接收信号强度指示
+         * unit: dBm
+         * range: (-∞, 0]
+         */
+
+        /**
+         * Constructs a new SignalBase.
+         * @memberof Signal
+         * @classdesc Represents a SignalBase.
+         * @constructor
+         * @param {Signal.ISignalBase=} [properties] Properties to set
+         */
+        function SignalBase(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * 信号强度
+         * desc: 信号强度百分比
+         * unit: %
+         * range: [0, 100]
+         * @member {number}percent
+         * @memberof Signal.SignalBase
+         * @instance
+         */
+        SignalBase.prototype.percent = 0;
+
+        /**
+         * 类型
+         * desc: 连接方式类型
+         * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
+         * @member {Signal.SignalBase.Type}type
+         * @memberof Signal.SignalBase
+         * @instance
+         */
+        SignalBase.prototype.type = 0;
+
+        /**
+         * 协议
+         * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
+         * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
+         * @member {string}protocal
+         * @memberof Signal.SignalBase
+         * @instance
+         */
+        SignalBase.prototype.protocal = "";
+
+        /**
+         * RSSI
+         * desc: 接收信号强度指示
+         * unit: dBm
+         * range: (-∞, 0]
+         * @member {number}rssi
+         * @memberof Signal.SignalBase
+         * @instance
+         */
+        SignalBase.prototype.rssi = 0;
+
+        /**
+         * Creates a new SignalBase instance using the specified properties.
+         * @function create
+         * @memberof Signal.SignalBase
+         * @static
+         * @param {Signal.ISignalBase=} [properties] Properties to set
+         * @returns {Signal.SignalBase} SignalBase instance
+         */
+        SignalBase.create = function create(properties) {
+            return new SignalBase(properties);
+        };
+
+        /**
+         * Encodes the specified SignalBase message. Does not implicitly {@link Signal.SignalBase.verify|verify} messages.
+         * @function encode
+         * @memberof Signal.SignalBase
+         * @static
+         * @param {Signal.ISignalBase} message SignalBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SignalBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.percent != null && message.hasOwnProperty("percent"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.percent);
+            if (message.type != null && message.hasOwnProperty("type"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.type);
+            if (message.protocal != null && message.hasOwnProperty("protocal"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.protocal);
+            if (message.rssi != null && message.hasOwnProperty("rssi"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.rssi);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SignalBase message, length delimited. Does not implicitly {@link Signal.SignalBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof Signal.SignalBase
+         * @static
+         * @param {Signal.ISignalBase} message SignalBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SignalBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SignalBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof Signal.SignalBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {Signal.SignalBase} SignalBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SignalBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.Signal.SignalBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.percent = reader.uint32();
+                    break;
+                case 2:
+                    message.type = reader.int32();
+                    break;
+                case 3:
+                    message.protocal = reader.string();
+                    break;
+                case 4:
+                    message.rssi = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SignalBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof Signal.SignalBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {Signal.SignalBase} SignalBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SignalBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SignalBase message.
+         * @function verify
+         * @memberof Signal.SignalBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SignalBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.percent != null && message.hasOwnProperty("percent"))
+                if (!$util.isInteger(message.percent))
+                    return "percent: integer expected";
+            if (message.type != null && message.hasOwnProperty("type"))
+                switch (message.type) {
+                default:
+                    return "type: enum value expected";
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    break;
+                }
+            if (message.protocal != null && message.hasOwnProperty("protocal"))
+                if (!$util.isString(message.protocal))
+                    return "protocal: string expected";
+            if (message.rssi != null && message.hasOwnProperty("rssi"))
+                if (!$util.isInteger(message.rssi))
+                    return "rssi: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a SignalBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof Signal.SignalBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {Signal.SignalBase} SignalBase
+         */
+        SignalBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.Signal.SignalBase)
+                return object;
+            var message = new $root.Signal.SignalBase();
+            if (object.percent != null)
+                message.percent = object.percent >>> 0;
+            switch (object.type) {
+            case "UNDEFINED":
+            case 0:
+                message.type = 0;
+                break;
+            case "OTHER":
+            case 1:
+                message.type = 1;
+                break;
+            case "TELE2G":
+            case 2:
+                message.type = 2;
+                break;
+            case "TELE3G":
+            case 3:
+                message.type = 3;
+                break;
+            case "TELE4G":
+            case 4:
+                message.type = 4;
+                break;
+            case "TELE5G":
+            case 5:
+                message.type = 5;
+                break;
+            case "BAND24GHZ":
+            case 6:
+                message.type = 6;
+                break;
+            case "BAND58GHZ":
+            case 7:
+                message.type = 7;
+                break;
+            }
+            if (object.protocal != null)
+                message.protocal = String(object.protocal);
+            if (object.rssi != null)
+                message.rssi = object.rssi | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SignalBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof Signal.SignalBase
+         * @static
+         * @param {Signal.SignalBase} message SignalBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SignalBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.percent = 0;
+                object.type = options.enums === String ? "UNDEFINED" : 0;
+                object.protocal = "";
+                object.rssi = 0;
+            }
+            if (message.percent != null && message.hasOwnProperty("percent"))
+                object.percent = message.percent;
+            if (message.type != null && message.hasOwnProperty("type"))
+                object.type = options.enums === String ? $root.Signal.SignalBase.Type[message.type] : message.type;
+            if (message.protocal != null && message.hasOwnProperty("protocal"))
+                object.protocal = message.protocal;
+            if (message.rssi != null && message.hasOwnProperty("rssi"))
+                object.rssi = message.rssi;
+            return object;
+        };
+
+        /**
+         * Converts this SignalBase to JSON.
+         * @function toJSON
+         * @memberof Signal.SignalBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SignalBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * 枚举类型说明:
+         * 未知(默认值): UNDEFINED
+         * 其他类型: OTHER
+         * 2G: TELE2G
+         * 3G: TELE3G
+         * 4G: TELE4G
+         * 5G: TELE5G
+         * 2.4GHz: BAND24GHZ
+         * 5.8GHz: BAND58GHZ
+         * @enum {string}
+         * @property {number} UNDEFINED=0 UNDEFINED value
+         * @property {number} OTHER=1 OTHER value
+         * @property {number} TELE2G=2 TELE2G value
+         * @property {number} TELE3G=3 TELE3G value
+         * @property {number} TELE4G=4 TELE4G value
+         * @property {number} TELE5G=5 TELE5G value
+         * @property {number} BAND24GHZ=6 BAND24GHZ value
+         * @property {number} BAND58GHZ=7 BAND58GHZ value
+         */
+        SignalBase.Type = (function() {
+            var valuesById = {}, values = Object.create(valuesById);
+            values[valuesById[0] = "UNDEFINED"] = 0;
+            values[valuesById[1] = "OTHER"] = 1;
+            values[valuesById[2] = "TELE2G"] = 2;
+            values[valuesById[3] = "TELE3G"] = 3;
+            values[valuesById[4] = "TELE4G"] = 4;
+            values[valuesById[5] = "TELE5G"] = 5;
+            values[valuesById[6] = "BAND24GHZ"] = 6;
+            values[valuesById[7] = "BAND58GHZ"] = 7;
+            return values;
+        })();
+
+        return SignalBase;
     })();
 
     return Signal;

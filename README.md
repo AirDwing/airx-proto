@@ -91,21 +91,27 @@ message GNSS {
 
 message Signal {
 
-    uint32 percent = 1;
-    Type type = 2;
-    string protocal = 3;
-    int32 rssi = 4;
+    SignalBase data = 1;
+    SignalBase image = 2;
 
-    enum Type {
+    message SignalBase {
 
-        UNDEFINED = 0;
-        OTHER = 1;
-        TELE2G = 2;
-        TELE3G = 3;
-        TELE4G = 4;
-        TELE5G = 5;
-        BAND24GHZ = 6;
-        BAND58GHZ = 7;
+        uint32 percent = 1;
+        Type type = 2;
+        string protocal = 3;
+        int32 rssi = 4;
+
+        enum Type {
+
+            UNDEFINED = 0;
+            OTHER = 1;
+            TELE2G = 2;
+            TELE3G = 3;
+            TELE4G = 4;
+            TELE5G = 5;
+            BAND24GHZ = 6;
+            BAND58GHZ = 7;
+        }
     }
 }
 

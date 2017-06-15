@@ -2,55 +2,67 @@ syntax = "proto3";
 
 // 信号传感器
 message Signal {
-  /**
-   * 信号强度
-   * desc: 信号强度百分比
-   * unit: %
-   * range: [0, 100]
-   */
-  uint32 percent = 1;
-  
-  /**
-   * 枚举类型说明:
-   * 未知(默认值): UNDEFINED
-   * 其他类型: OTHER
-   * 2G: TELE2G
-   * 3G: TELE3G
-   * 4G: TELE4G
-   * 5G: TELE5G
-   * 2.4GHz: BAND24GHZ
-   * 5.8GHz: BAND58GHZ
-   */
-  enum Type {
-    UNDEFINED = 0;
-    OTHER = 1;
-    TELE2G = 2;
-    TELE3G = 3;
-    TELE4G = 4;
-    TELE5G = 5;
-    BAND24GHZ = 6;
-    BAND58GHZ = 7;
+  message SignalBase {
+    /**
+     * 信号强度
+     * desc: 信号强度百分比
+     * unit: %
+     * range: [0, 100]
+     */
+    uint32 percent = 1;
+    
+    /**
+     * 枚举类型说明:
+     * 未知(默认值): UNDEFINED
+     * 其他类型: OTHER
+     * 2G: TELE2G
+     * 3G: TELE3G
+     * 4G: TELE4G
+     * 5G: TELE5G
+     * 2.4GHz: BAND24GHZ
+     * 5.8GHz: BAND58GHZ
+     */
+    enum Type {
+      UNDEFINED = 0;
+      OTHER = 1;
+      TELE2G = 2;
+      TELE3G = 3;
+      TELE4G = 4;
+      TELE5G = 5;
+      BAND24GHZ = 6;
+      BAND58GHZ = 7;
+    }
+    
+    /**
+     * 类型
+     * desc: 连接方式类型
+     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
+     */
+    Type type = 2;
+    
+    /**
+     * 协议
+     * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
+     * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
+     */
+    string protocal = 3;
+    
+    /**
+     * RSSI
+     * desc: 接收信号强度指示
+     * unit: dBm
+     * range: (-∞, 0]
+     */
+    int32 rssi = 4;
   }
+
+  /**
+   * 数据信号
+   */
+  SignalBase data = 1;
   
   /**
-   * 类型
-   * desc: 连接方式类型
-   * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
+   * 图像信号
    */
-  Type type = 2;
-  
-  /**
-   * 协议
-   * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
-   * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
-   */
-  string protocal = 3;
-  
-  /**
-   * RSSI
-   * desc: 接收信号强度指示
-   * unit: dBm
-   * range: (-∞, 0]
-   */
-  int32 rssi = 4;
+  SignalBase image = 2;
 }
