@@ -6,7 +6,7 @@ const timestamp = {
       nanos: (date % 1000) * 1000
     };
   },
-  get: input => new Date(input.seconds * 1000 + input.nanos / 1000)
+  get: input => new Date(input.seconds * 1000 + input.nanos / 1000000)
 };
 
 module.exports = timestamp;
