@@ -24,7 +24,8 @@ message Data {
     Dronestatus dronestatus = 23;
     GNSS gnss = 24;
     Signal signal = 25;
-    Velocity velocity = 26;
+    Signal signal_image = 26;
+    Velocity velocity = 27;
     Atmosphere atmosphere = 31;
     repeated Custom custom = 99;
 }
@@ -91,27 +92,21 @@ message GNSS {
 
 message Signal {
 
-    SignalBase data = 1;
-    SignalBase image = 2;
+    uint32 percent = 1;
+    Type type = 2;
+    string protocal = 3;
+    int32 rssi = 4;
 
-    message SignalBase {
+    enum Type {
 
-        uint32 percent = 1;
-        Type type = 2;
-        string protocal = 3;
-        int32 rssi = 4;
-
-        enum Type {
-
-            UNDEFINED = 0;
-            OTHER = 1;
-            TELE2G = 2;
-            TELE3G = 3;
-            TELE4G = 4;
-            TELE5G = 5;
-            BAND24GHZ = 6;
-            BAND58GHZ = 7;
-        }
+        UNDEFINED = 0;
+        OTHER = 1;
+        TELE2G = 2;
+        TELE3G = 3;
+        TELE4G = 4;
+        TELE5G = 5;
+        BAND24GHZ = 6;
+        BAND58GHZ = 7;
     }
 }
 

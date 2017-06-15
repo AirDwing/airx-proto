@@ -123,6 +123,9 @@ export interface IData {
     /** Data signal */
     signal?: ISignal;
 
+    /** Data signalImage */
+    signalImage?: ISignal;
+
     /** Data velocity */
     velocity?: IVelocity;
 
@@ -159,6 +162,9 @@ export class Data {
 
     /** Data signal. */
     public signal?: (ISignal|null);
+
+    /** Data signalImage. */
+    public signalImage?: (ISignal|null);
 
     /** Data velocity. */
     public velocity?: (IVelocity|null);
@@ -1181,11 +1187,35 @@ export class GNSS {
 /** Properties of a Signal. */
 export interface ISignal {
 
-    /** 数据信号 */
-    data?: Signal.ISignalBase;
+    /**
+     * 信号强度
+     * desc: 信号强度百分比
+     * unit: %
+     * range: [0, 100]
+     */
+    percent?: number;
 
-    /** 图像信号 */
-    image?: Signal.ISignalBase;
+    /**
+     * 类型
+     * desc: 连接方式类型
+     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
+     */
+    type?: Signal.Type;
+
+    /**
+     * 协议
+     * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
+     * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
+     */
+    protocal?: string;
+
+    /**
+     * RSSI
+     * desc: 接收信号强度指示
+     * unit: dBm
+     * range: (-∞, 0]
+     */
+    rssi?: number;
 }
 
 /** Represents a Signal. */
@@ -1197,11 +1227,35 @@ export class Signal {
      */
     constructor(properties?: ISignal);
 
-    /** 数据信号 */
-    public data?: (Signal.ISignalBase|null);
+    /**
+     * 信号强度
+     * desc: 信号强度百分比
+     * unit: %
+     * range: [0, 100]
+     */
+    public percent: number;
 
-    /** 图像信号 */
-    public image?: (Signal.ISignalBase|null);
+    /**
+     * 类型
+     * desc: 连接方式类型
+     * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
+     */
+    public type: Signal.Type;
+
+    /**
+     * 协议
+     * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
+     * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
+     */
+    public protocal: string;
+
+    /**
+     * RSSI
+     * desc: 接收信号强度指示
+     * unit: dBm
+     * range: (-∞, 0]
+     */
+    public rssi: number;
 
     /**
      * Creates a new Signal instance using the specified properties.
@@ -1276,173 +1330,26 @@ export class Signal {
 
 export namespace Signal {
 
-    /** Properties of a SignalBase. */
-    interface ISignalBase {
-
-        /**
-         * 信号强度
-         * desc: 信号强度百分比
-         * unit: %
-         * range: [0, 100]
-         */
-        percent?: number;
-
-        /**
-         * 类型
-         * desc: 连接方式类型
-         * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
-         */
-        type?: Signal.SignalBase.Type;
-
-        /**
-         * 协议
-         * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
-         * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
-         */
-        protocal?: string;
-
-        /**
-         * RSSI
-         * desc: 接收信号强度指示
-         * unit: dBm
-         * range: (-∞, 0]
-         */
-        rssi?: number;
-    }
-
-    /** Represents a SignalBase. */
-    class SignalBase {
-
-        /**
-         * Constructs a new SignalBase.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: Signal.ISignalBase);
-
-        /**
-         * 信号强度
-         * desc: 信号强度百分比
-         * unit: %
-         * range: [0, 100]
-         */
-        public percent: number;
-
-        /**
-         * 类型
-         * desc: 连接方式类型
-         * range: [ UNDEFINED, OTHER, TELE2G, TELE3G, TELE4G, TELE5G, BAND24GHZ, BAND58GHZ]
-         */
-        public type: Signal.SignalBase.Type;
-
-        /**
-         * 协议
-         * desc: 链路协议，大多数情况下仅当选择具体频率或Other时有效
-         * examples: ["Lightbridge 2","NB-IoT","ZigBee"]
-         */
-        public protocal: string;
-
-        /**
-         * RSSI
-         * desc: 接收信号强度指示
-         * unit: dBm
-         * range: (-∞, 0]
-         */
-        public rssi: number;
-
-        /**
-         * Creates a new SignalBase instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns SignalBase instance
-         */
-        public static create(properties?: Signal.ISignalBase): Signal.SignalBase;
-
-        /**
-         * Encodes the specified SignalBase message. Does not implicitly {@link Signal.SignalBase.verify|verify} messages.
-         * @param message SignalBase message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: Signal.ISignalBase, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified SignalBase message, length delimited. Does not implicitly {@link Signal.SignalBase.verify|verify} messages.
-         * @param message SignalBase message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: Signal.ISignalBase, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a SignalBase message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns SignalBase
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Signal.SignalBase;
-
-        /**
-         * Decodes a SignalBase message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns SignalBase
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Signal.SignalBase;
-
-        /**
-         * Verifies a SignalBase message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a SignalBase message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns SignalBase
-         */
-        public static fromObject(object: { [k: string]: any }): Signal.SignalBase;
-
-        /**
-         * Creates a plain object from a SignalBase message. Also converts values to other types if specified.
-         * @param message SignalBase
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: Signal.SignalBase, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this SignalBase to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    namespace SignalBase {
-
-        /**
-         * 枚举类型说明:
-         * 未知(默认值): UNDEFINED
-         * 其他类型: OTHER
-         * 2G: TELE2G
-         * 3G: TELE3G
-         * 4G: TELE4G
-         * 5G: TELE5G
-         * 2.4GHz: BAND24GHZ
-         * 5.8GHz: BAND58GHZ
-         */
-        enum Type {
-            UNDEFINED = 0,
-            OTHER = 1,
-            TELE2G = 2,
-            TELE3G = 3,
-            TELE4G = 4,
-            TELE5G = 5,
-            BAND24GHZ = 6,
-            BAND58GHZ = 7
-        }
+    /**
+     * 枚举类型说明:
+     * 未知(默认值): UNDEFINED
+     * 其他类型: OTHER
+     * 2G: TELE2G
+     * 3G: TELE3G
+     * 4G: TELE4G
+     * 5G: TELE5G
+     * 2.4GHz: BAND24GHZ
+     * 5.8GHz: BAND58GHZ
+     */
+    enum Type {
+        UNDEFINED = 0,
+        OTHER = 1,
+        TELE2G = 2,
+        TELE3G = 3,
+        TELE4G = 4,
+        TELE5G = 5,
+        BAND24GHZ = 6,
+        BAND58GHZ = 7
     }
 }
 
