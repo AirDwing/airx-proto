@@ -12,11 +12,12 @@ message Data {
     Gateway gateway = 1;
     Attitude attitude = 21;
     Battery battery = 22;
-    Dronestatus dronestatus = 23;
-    GNSS gnss = 24;
-    Signal signal = 25;
-    Signal signal_image = 26;
-    Velocity velocity = 27;
+    Battery battery_controller = 23;
+    Dronestatus dronestatus = 24;
+    GNSS gnss = 25;
+    Signal signal = 26;
+    Signal signal_image = 27;
+    Velocity velocity = 28;
     Atmosphere atmosphere = 31;
     repeated Custom custom = 99;
 }
@@ -63,6 +64,7 @@ message Battery {
     bool charging = 2;
     uint32 voltage = 3;
     int32 current = 4;
+    int32 temperature = 5;
 }
 
 message Dronestatus {

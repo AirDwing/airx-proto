@@ -30,4 +30,11 @@ message Battery {
    * unit: mA
    */
   int32 current = 4;
+
+  /**
+   * 温度
+   * desc: 温度
+   * range: (-∞, +∞)
+   */
+  int32 temperature = 5;
 }

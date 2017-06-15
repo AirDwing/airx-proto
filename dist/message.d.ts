@@ -114,6 +114,9 @@ export interface IData {
     /** Data battery */
     battery?: IBattery;
 
+    /** Data batteryController */
+    batteryController?: IBattery;
+
     /** Data dronestatus */
     dronestatus?: IDronestatus;
 
@@ -153,6 +156,9 @@ export class Data {
 
     /** Data battery. */
     public battery?: (IBattery|null);
+
+    /** Data batteryController. */
+    public batteryController?: (IBattery|null);
 
     /** Data dronestatus. */
     public dronestatus?: (IDronestatus|null);
@@ -795,6 +801,13 @@ export interface IBattery {
      * unit: mA
      */
     current?: number;
+
+    /**
+     * 温度
+     * desc: 温度
+     * range: (-∞, +∞)
+     */
+    temperature?: number;
 }
 
 /** Represents a Battery. */
@@ -834,6 +847,13 @@ export class Battery {
      * unit: mA
      */
     public current: number;
+
+    /**
+     * 温度
+     * desc: 温度
+     * range: (-∞, +∞)
+     */
+    public temperature: number;
 
     /**
      * Creates a new Battery instance using the specified properties.

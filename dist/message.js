@@ -259,6 +259,7 @@ $root.Data = (function() {
      * @property {IGateway} [gateway] Data gateway
      * @property {IAttitude} [attitude] Data attitude
      * @property {IBattery} [battery] Data battery
+     * @property {IBattery} [batteryController] Data batteryController
      * @property {IDronestatus} [dronestatus] Data dronestatus
      * @property {IGNSS} [gnss] Data gnss
      * @property {ISignal} [signal] Data signal
@@ -306,6 +307,14 @@ $root.Data = (function() {
      * @instance
      */
     Data.prototype.battery = null;
+
+    /**
+     * Data batteryController.
+     * @member {(IBattery|null|undefined)}batteryController
+     * @memberof Data
+     * @instance
+     */
+    Data.prototype.batteryController = null;
 
     /**
      * Data dronestatus.
@@ -393,16 +402,18 @@ $root.Data = (function() {
             $root.Attitude.encode(message.attitude, writer.uint32(/* id 21, wireType 2 =*/170).fork()).ldelim();
         if (message.battery != null && message.hasOwnProperty("battery"))
             $root.Battery.encode(message.battery, writer.uint32(/* id 22, wireType 2 =*/178).fork()).ldelim();
+        if (message.batteryController != null && message.hasOwnProperty("batteryController"))
+            $root.Battery.encode(message.batteryController, writer.uint32(/* id 23, wireType 2 =*/186).fork()).ldelim();
         if (message.dronestatus != null && message.hasOwnProperty("dronestatus"))
-            $root.Dronestatus.encode(message.dronestatus, writer.uint32(/* id 23, wireType 2 =*/186).fork()).ldelim();
+            $root.Dronestatus.encode(message.dronestatus, writer.uint32(/* id 24, wireType 2 =*/194).fork()).ldelim();
         if (message.gnss != null && message.hasOwnProperty("gnss"))
-            $root.GNSS.encode(message.gnss, writer.uint32(/* id 24, wireType 2 =*/194).fork()).ldelim();
+            $root.GNSS.encode(message.gnss, writer.uint32(/* id 25, wireType 2 =*/202).fork()).ldelim();
         if (message.signal != null && message.hasOwnProperty("signal"))
-            $root.Signal.encode(message.signal, writer.uint32(/* id 25, wireType 2 =*/202).fork()).ldelim();
+            $root.Signal.encode(message.signal, writer.uint32(/* id 26, wireType 2 =*/210).fork()).ldelim();
         if (message.signalImage != null && message.hasOwnProperty("signalImage"))
-            $root.Signal.encode(message.signalImage, writer.uint32(/* id 26, wireType 2 =*/210).fork()).ldelim();
+            $root.Signal.encode(message.signalImage, writer.uint32(/* id 27, wireType 2 =*/218).fork()).ldelim();
         if (message.velocity != null && message.hasOwnProperty("velocity"))
-            $root.Velocity.encode(message.velocity, writer.uint32(/* id 27, wireType 2 =*/218).fork()).ldelim();
+            $root.Velocity.encode(message.velocity, writer.uint32(/* id 28, wireType 2 =*/226).fork()).ldelim();
         if (message.atmosphere != null && message.hasOwnProperty("atmosphere"))
             $root.Atmosphere.encode(message.atmosphere, writer.uint32(/* id 31, wireType 2 =*/250).fork()).ldelim();
         if (message.custom != null && message.custom.length)
@@ -452,18 +463,21 @@ $root.Data = (function() {
                 message.battery = $root.Battery.decode(reader, reader.uint32());
                 break;
             case 23:
-                message.dronestatus = $root.Dronestatus.decode(reader, reader.uint32());
+                message.batteryController = $root.Battery.decode(reader, reader.uint32());
                 break;
             case 24:
-                message.gnss = $root.GNSS.decode(reader, reader.uint32());
+                message.dronestatus = $root.Dronestatus.decode(reader, reader.uint32());
                 break;
             case 25:
-                message.signal = $root.Signal.decode(reader, reader.uint32());
+                message.gnss = $root.GNSS.decode(reader, reader.uint32());
                 break;
             case 26:
-                message.signalImage = $root.Signal.decode(reader, reader.uint32());
+                message.signal = $root.Signal.decode(reader, reader.uint32());
                 break;
             case 27:
+                message.signalImage = $root.Signal.decode(reader, reader.uint32());
+                break;
+            case 28:
                 message.velocity = $root.Velocity.decode(reader, reader.uint32());
                 break;
             case 31:
@@ -523,6 +537,11 @@ $root.Data = (function() {
             error = $root.Battery.verify(message.battery);
             if (error)
                 return "battery." + error;
+        }
+        if (message.batteryController != null && message.hasOwnProperty("batteryController")) {
+            error = $root.Battery.verify(message.batteryController);
+            if (error)
+                return "batteryController." + error;
         }
         if (message.dronestatus != null && message.hasOwnProperty("dronestatus")) {
             error = $root.Dronestatus.verify(message.dronestatus);
@@ -593,6 +612,11 @@ $root.Data = (function() {
                 throw TypeError(".Data.battery: object expected");
             message.battery = $root.Battery.fromObject(object.battery);
         }
+        if (object.batteryController != null) {
+            if (typeof object.batteryController !== "object")
+                throw TypeError(".Data.batteryController: object expected");
+            message.batteryController = $root.Battery.fromObject(object.batteryController);
+        }
         if (object.dronestatus != null) {
             if (typeof object.dronestatus !== "object")
                 throw TypeError(".Data.dronestatus: object expected");
@@ -655,6 +679,7 @@ $root.Data = (function() {
             object.gateway = null;
             object.attitude = null;
             object.battery = null;
+            object.batteryController = null;
             object.dronestatus = null;
             object.gnss = null;
             object.signal = null;
@@ -668,6 +693,8 @@ $root.Data = (function() {
             object.attitude = $root.Attitude.toObject(message.attitude, options);
         if (message.battery != null && message.hasOwnProperty("battery"))
             object.battery = $root.Battery.toObject(message.battery, options);
+        if (message.batteryController != null && message.hasOwnProperty("batteryController"))
+            object.batteryController = $root.Battery.toObject(message.batteryController, options);
         if (message.dronestatus != null && message.hasOwnProperty("dronestatus"))
             object.dronestatus = $root.Dronestatus.toObject(message.dronestatus, options);
         if (message.gnss != null && message.hasOwnProperty("gnss"))
@@ -1829,6 +1856,9 @@ $root.Battery = (function() {
      * @property {number} [current] 电流
      * desc: 正为放电，负为充电
      * unit: mA
+     * @property {number} [temperature] 温度
+     * desc: 温度
+     * range: (-∞, +∞)
      */
 
     /**
@@ -1887,6 +1917,16 @@ $root.Battery = (function() {
     Battery.prototype.current = 0;
 
     /**
+     * 温度
+     * desc: 温度
+     * range: (-∞, +∞)
+     * @member {number}temperature
+     * @memberof Battery
+     * @instance
+     */
+    Battery.prototype.temperature = 0;
+
+    /**
      * Creates a new Battery instance using the specified properties.
      * @function create
      * @memberof Battery
@@ -1918,6 +1958,8 @@ $root.Battery = (function() {
             writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.voltage);
         if (message.current != null && message.hasOwnProperty("current"))
             writer.uint32(/* id 4, wireType 0 =*/32).int32(message.current);
+        if (message.temperature != null && message.hasOwnProperty("temperature"))
+            writer.uint32(/* id 5, wireType 0 =*/40).int32(message.temperature);
         return writer;
     };
 
@@ -1963,6 +2005,9 @@ $root.Battery = (function() {
                 break;
             case 4:
                 message.current = reader.int32();
+                break;
+            case 5:
+                message.temperature = reader.int32();
                 break;
             default:
                 reader.skipType(tag & 7);
@@ -2011,6 +2056,9 @@ $root.Battery = (function() {
         if (message.current != null && message.hasOwnProperty("current"))
             if (!$util.isInteger(message.current))
                 return "current: integer expected";
+        if (message.temperature != null && message.hasOwnProperty("temperature"))
+            if (!$util.isInteger(message.temperature))
+                return "temperature: integer expected";
         return null;
     };
 
@@ -2034,6 +2082,8 @@ $root.Battery = (function() {
             message.voltage = object.voltage >>> 0;
         if (object.current != null)
             message.current = object.current | 0;
+        if (object.temperature != null)
+            message.temperature = object.temperature | 0;
         return message;
     };
 
@@ -2055,6 +2105,7 @@ $root.Battery = (function() {
             object.charging = false;
             object.voltage = 0;
             object.current = 0;
+            object.temperature = 0;
         }
         if (message.percent != null && message.hasOwnProperty("percent"))
             object.percent = message.percent;
@@ -2064,6 +2115,8 @@ $root.Battery = (function() {
             object.voltage = message.voltage;
         if (message.current != null && message.hasOwnProperty("current"))
             object.current = message.current;
+        if (message.temperature != null && message.hasOwnProperty("temperature"))
+            object.temperature = message.temperature;
         return object;
     };
 

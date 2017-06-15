@@ -27,12 +27,13 @@ message Data {
   
   // 2 飞行器
   Attitude attitude = 21; // 姿态传感器
-  Battery battery = 22; // 电池传感器
-  Dronestatus dronestatus = 23; // 三维速度
-  GNSS gnss = 24; // GNSS传感器
-  Signal signal = 25; // 数据信号传感器
-  Signal signal_image = 26; // 图像信号传感器
-  Velocity velocity = 27; // 无人机状态
+  Battery battery = 22; // 无人机电池传感器
+  Battery battery_controller = 23; // 遥控器电池传感器
+  Dronestatus dronestatus = 24; // 三维速度
+  GNSS gnss = 25; // GNSS传感器
+  Signal signal = 26; // 数据信号传感器
+  Signal signal_image = 27; // 图像信号传感器
+  Velocity velocity = 28; // 无人机状态
   
   // 3 传感器
   Atmosphere atmosphere = 31; // 大气传感器
