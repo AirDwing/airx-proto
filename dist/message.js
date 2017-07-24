@@ -259,11 +259,11 @@ $root.Data = (function() {
      * @property {IGateway} [gateway] Data gateway
      * @property {IAttitude} [attitude] Data attitude
      * @property {IBattery} [battery] Data battery
-     * @property {IBattery} [batteryController] Data batteryController
+     * @property {IBattery} [battery_controller] Data battery_controller
      * @property {IDronestatus} [dronestatus] Data dronestatus
      * @property {IGNSS} [gnss] Data gnss
      * @property {ISignal} [signal] Data signal
-     * @property {ISignal} [signalImage] Data signalImage
+     * @property {ISignal} [signal_image] Data signal_image
      * @property {IVelocity} [velocity] Data velocity
      * @property {IAtmosphere} [atmosphere] Data atmosphere
      * @property {Array.<ICustom>} [custom] Data custom
@@ -309,12 +309,12 @@ $root.Data = (function() {
     Data.prototype.battery = null;
 
     /**
-     * Data batteryController.
-     * @member {(IBattery|null|undefined)}batteryController
+     * Data battery_controller.
+     * @member {(IBattery|null|undefined)}battery_controller
      * @memberof Data
      * @instance
      */
-    Data.prototype.batteryController = null;
+    Data.prototype.battery_controller = null;
 
     /**
      * Data dronestatus.
@@ -341,12 +341,12 @@ $root.Data = (function() {
     Data.prototype.signal = null;
 
     /**
-     * Data signalImage.
-     * @member {(ISignal|null|undefined)}signalImage
+     * Data signal_image.
+     * @member {(ISignal|null|undefined)}signal_image
      * @memberof Data
      * @instance
      */
-    Data.prototype.signalImage = null;
+    Data.prototype.signal_image = null;
 
     /**
      * Data velocity.
@@ -402,16 +402,16 @@ $root.Data = (function() {
             $root.Attitude.encode(message.attitude, writer.uint32(/* id 21, wireType 2 =*/170).fork()).ldelim();
         if (message.battery != null && message.hasOwnProperty("battery"))
             $root.Battery.encode(message.battery, writer.uint32(/* id 22, wireType 2 =*/178).fork()).ldelim();
-        if (message.batteryController != null && message.hasOwnProperty("batteryController"))
-            $root.Battery.encode(message.batteryController, writer.uint32(/* id 23, wireType 2 =*/186).fork()).ldelim();
+        if (message.battery_controller != null && message.hasOwnProperty("battery_controller"))
+            $root.Battery.encode(message.battery_controller, writer.uint32(/* id 23, wireType 2 =*/186).fork()).ldelim();
         if (message.dronestatus != null && message.hasOwnProperty("dronestatus"))
             $root.Dronestatus.encode(message.dronestatus, writer.uint32(/* id 24, wireType 2 =*/194).fork()).ldelim();
         if (message.gnss != null && message.hasOwnProperty("gnss"))
             $root.GNSS.encode(message.gnss, writer.uint32(/* id 25, wireType 2 =*/202).fork()).ldelim();
         if (message.signal != null && message.hasOwnProperty("signal"))
             $root.Signal.encode(message.signal, writer.uint32(/* id 26, wireType 2 =*/210).fork()).ldelim();
-        if (message.signalImage != null && message.hasOwnProperty("signalImage"))
-            $root.Signal.encode(message.signalImage, writer.uint32(/* id 27, wireType 2 =*/218).fork()).ldelim();
+        if (message.signal_image != null && message.hasOwnProperty("signal_image"))
+            $root.Signal.encode(message.signal_image, writer.uint32(/* id 27, wireType 2 =*/218).fork()).ldelim();
         if (message.velocity != null && message.hasOwnProperty("velocity"))
             $root.Velocity.encode(message.velocity, writer.uint32(/* id 28, wireType 2 =*/226).fork()).ldelim();
         if (message.atmosphere != null && message.hasOwnProperty("atmosphere"))
@@ -463,7 +463,7 @@ $root.Data = (function() {
                 message.battery = $root.Battery.decode(reader, reader.uint32());
                 break;
             case 23:
-                message.batteryController = $root.Battery.decode(reader, reader.uint32());
+                message.battery_controller = $root.Battery.decode(reader, reader.uint32());
                 break;
             case 24:
                 message.dronestatus = $root.Dronestatus.decode(reader, reader.uint32());
@@ -475,7 +475,7 @@ $root.Data = (function() {
                 message.signal = $root.Signal.decode(reader, reader.uint32());
                 break;
             case 27:
-                message.signalImage = $root.Signal.decode(reader, reader.uint32());
+                message.signal_image = $root.Signal.decode(reader, reader.uint32());
                 break;
             case 28:
                 message.velocity = $root.Velocity.decode(reader, reader.uint32());
@@ -538,10 +538,10 @@ $root.Data = (function() {
             if (error)
                 return "battery." + error;
         }
-        if (message.batteryController != null && message.hasOwnProperty("batteryController")) {
-            error = $root.Battery.verify(message.batteryController);
+        if (message.battery_controller != null && message.hasOwnProperty("battery_controller")) {
+            error = $root.Battery.verify(message.battery_controller);
             if (error)
-                return "batteryController." + error;
+                return "battery_controller." + error;
         }
         if (message.dronestatus != null && message.hasOwnProperty("dronestatus")) {
             error = $root.Dronestatus.verify(message.dronestatus);
@@ -558,10 +558,10 @@ $root.Data = (function() {
             if (error)
                 return "signal." + error;
         }
-        if (message.signalImage != null && message.hasOwnProperty("signalImage")) {
-            error = $root.Signal.verify(message.signalImage);
+        if (message.signal_image != null && message.hasOwnProperty("signal_image")) {
+            error = $root.Signal.verify(message.signal_image);
             if (error)
-                return "signalImage." + error;
+                return "signal_image." + error;
         }
         if (message.velocity != null && message.hasOwnProperty("velocity")) {
             error = $root.Velocity.verify(message.velocity);
@@ -612,10 +612,10 @@ $root.Data = (function() {
                 throw TypeError(".Data.battery: object expected");
             message.battery = $root.Battery.fromObject(object.battery);
         }
-        if (object.batteryController != null) {
-            if (typeof object.batteryController !== "object")
-                throw TypeError(".Data.batteryController: object expected");
-            message.batteryController = $root.Battery.fromObject(object.batteryController);
+        if (object.battery_controller != null) {
+            if (typeof object.battery_controller !== "object")
+                throw TypeError(".Data.battery_controller: object expected");
+            message.battery_controller = $root.Battery.fromObject(object.battery_controller);
         }
         if (object.dronestatus != null) {
             if (typeof object.dronestatus !== "object")
@@ -632,10 +632,10 @@ $root.Data = (function() {
                 throw TypeError(".Data.signal: object expected");
             message.signal = $root.Signal.fromObject(object.signal);
         }
-        if (object.signalImage != null) {
-            if (typeof object.signalImage !== "object")
-                throw TypeError(".Data.signalImage: object expected");
-            message.signalImage = $root.Signal.fromObject(object.signalImage);
+        if (object.signal_image != null) {
+            if (typeof object.signal_image !== "object")
+                throw TypeError(".Data.signal_image: object expected");
+            message.signal_image = $root.Signal.fromObject(object.signal_image);
         }
         if (object.velocity != null) {
             if (typeof object.velocity !== "object")
@@ -679,11 +679,11 @@ $root.Data = (function() {
             object.gateway = null;
             object.attitude = null;
             object.battery = null;
-            object.batteryController = null;
+            object.battery_controller = null;
             object.dronestatus = null;
             object.gnss = null;
             object.signal = null;
-            object.signalImage = null;
+            object.signal_image = null;
             object.velocity = null;
             object.atmosphere = null;
         }
@@ -693,16 +693,16 @@ $root.Data = (function() {
             object.attitude = $root.Attitude.toObject(message.attitude, options);
         if (message.battery != null && message.hasOwnProperty("battery"))
             object.battery = $root.Battery.toObject(message.battery, options);
-        if (message.batteryController != null && message.hasOwnProperty("batteryController"))
-            object.batteryController = $root.Battery.toObject(message.batteryController, options);
+        if (message.battery_controller != null && message.hasOwnProperty("battery_controller"))
+            object.battery_controller = $root.Battery.toObject(message.battery_controller, options);
         if (message.dronestatus != null && message.hasOwnProperty("dronestatus"))
             object.dronestatus = $root.Dronestatus.toObject(message.dronestatus, options);
         if (message.gnss != null && message.hasOwnProperty("gnss"))
             object.gnss = $root.GNSS.toObject(message.gnss, options);
         if (message.signal != null && message.hasOwnProperty("signal"))
             object.signal = $root.Signal.toObject(message.signal, options);
-        if (message.signalImage != null && message.hasOwnProperty("signalImage"))
-            object.signalImage = $root.Signal.toObject(message.signalImage, options);
+        if (message.signal_image != null && message.hasOwnProperty("signal_image"))
+            object.signal_image = $root.Signal.toObject(message.signal_image, options);
         if (message.velocity != null && message.hasOwnProperty("velocity"))
             object.velocity = $root.Velocity.toObject(message.velocity, options);
         if (message.atmosphere != null && message.hasOwnProperty("atmosphere"))

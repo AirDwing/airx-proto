@@ -9,11 +9,11 @@ const PBTS = './node_modules/.bin/pbts';
 const cwd = join(__dirname, './');
 
 // 压缩输出成一个 .proto 文件
-execSync(`${PBJS} -t proto3 -o dist/message.proto src/message.proto`, { cwd });
+execSync(`${PBJS} --keep-case -t proto3 -o dist/message.proto src/message.proto`, { cwd });
 // 输出可直接引用的js
-execSync(`${PBJS} -t static-module -w commonjs -o dist/message.js src/message.proto`, { cwd });
+execSync(`${PBJS} --keep-case -t static-module -w commonjs -o dist/message.js src/message.proto`, { cwd });
 // 输出代码提示文件 .d.ts
-execSync(`${PBJS} -t static-module -w commonjs src/message.proto | ${PBTS} -o dist/message.d.ts -`, {cwd});
+execSync(`${PBJS} --keep-case -t static-module -w commonjs src/message.proto | ${PBTS} --keep-case -o dist/message.d.ts -`, {cwd});
 
 // 读取压缩报文 -> README.md
 const proto = readFileSync(join(__dirname, './dist/message.proto'), 'utf-8');

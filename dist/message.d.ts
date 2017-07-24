@@ -114,8 +114,8 @@ export interface IData {
     /** Data battery */
     battery?: IBattery;
 
-    /** Data batteryController */
-    batteryController?: IBattery;
+    /** Data battery_controller */
+    battery_controller?: IBattery;
 
     /** Data dronestatus */
     dronestatus?: IDronestatus;
@@ -126,8 +126,8 @@ export interface IData {
     /** Data signal */
     signal?: ISignal;
 
-    /** Data signalImage */
-    signalImage?: ISignal;
+    /** Data signal_image */
+    signal_image?: ISignal;
 
     /** Data velocity */
     velocity?: IVelocity;
@@ -157,8 +157,8 @@ export class Data {
     /** Data battery. */
     public battery?: (IBattery|null);
 
-    /** Data batteryController. */
-    public batteryController?: (IBattery|null);
+    /** Data battery_controller. */
+    public battery_controller?: (IBattery|null);
 
     /** Data dronestatus. */
     public dronestatus?: (IDronestatus|null);
@@ -169,8 +169,8 @@ export class Data {
     /** Data signal. */
     public signal?: (ISignal|null);
 
-    /** Data signalImage. */
-    public signalImage?: (ISignal|null);
+    /** Data signal_image. */
+    public signal_image?: (ISignal|null);
 
     /** Data velocity. */
     public velocity?: (IVelocity|null);
