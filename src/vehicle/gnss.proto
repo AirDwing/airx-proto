@@ -46,4 +46,10 @@ message GNSS {
    * desc: GPS 时间,可选参数
    */
   google.protobuf.Timestamp timestamp = 6;
+
+  /**
+   * 水平定位精度
+   * desc: 米 精确到小数点后2位,可选参数
+   */
+  double hdop = 7;
 }

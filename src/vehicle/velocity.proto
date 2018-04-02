@@ -22,4 +22,11 @@ message Velocity {
    * unit: m
    */
   float z = 3;
+
+  /**
+   * 地速
+   * desc: 载具的地速，米/秒 精确到小数点后1位
+   * unit: m
+   */
+  float gspeed = 4;
 }

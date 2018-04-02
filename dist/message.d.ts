@@ -1079,6 +1079,12 @@ export interface IGNSS {
      * desc: GPS 时间,可选参数
      */
     timestamp?: google.protobuf.ITimestamp;
+
+    /**
+     * 水平定位精度
+     * desc: 米 精确到小数点后2位,可选参数
+     */
+    hdop?: number;
 }
 
 /** Represents a GNSS. */
@@ -1132,6 +1138,12 @@ export class GNSS {
      * desc: GPS 时间,可选参数
      */
     public timestamp?: (google.protobuf.ITimestamp|null);
+
+    /**
+     * 水平定位精度
+     * desc: 米 精确到小数点后2位,可选参数
+     */
+    public hdop: number;
 
     /**
      * Creates a new GNSS instance using the specified properties.
@@ -1396,6 +1408,13 @@ export interface IVelocity {
      * unit: m
      */
     z?: number;
+
+    /**
+     * 地速
+     * desc: 载具的地速，米/秒 精确到小数点后1位
+     * unit: m
+     */
+    gspeed?: number;
 }
 
 /** Represents a Velocity. */
@@ -1427,6 +1446,13 @@ export class Velocity {
      * unit: m
      */
     public z: number;
+
+    /**
+     * 地速
+     * desc: 载具的地速，米/秒 精确到小数点后1位
+     * unit: m
+     */
+    public gspeed: number;
 
     /**
      * Creates a new Velocity instance using the specified properties.
