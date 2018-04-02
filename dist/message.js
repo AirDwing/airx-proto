@@ -2372,6 +2372,8 @@ $root.GNSS = (function() {
      * unit: m
      * @property {google.protobuf.ITimestamp} [timestamp] GPS 时间
      * desc: GPS 时间,可选参数
+     * @property {number} [hdop] 水平定位精度
+     * desc: 米 精确到小数点后2位,可选参数
      */
 
     /**
@@ -2450,6 +2452,15 @@ $root.GNSS = (function() {
     GNSS.prototype.timestamp = null;
 
     /**
+     * 水平定位精度
+     * desc: 米 精确到小数点后2位,可选参数
+     * @member {number}hdop
+     * @memberof GNSS
+     * @instance
+     */
+    GNSS.prototype.hdop = 0;
+
+    /**
      * Creates a new GNSS instance using the specified properties.
      * @function create
      * @memberof GNSS
@@ -2485,6 +2496,8 @@ $root.GNSS = (function() {
             writer.uint32(/* id 5, wireType 1 =*/41).double(message.ato);
         if (message.timestamp != null && message.hasOwnProperty("timestamp"))
             $root.google.protobuf.Timestamp.encode(message.timestamp, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+        if (message.hdop != null && message.hasOwnProperty("hdop"))
+            writer.uint32(/* id 7, wireType 1 =*/57).double(message.hdop);
         return writer;
     };
 
@@ -2536,6 +2549,9 @@ $root.GNSS = (function() {
                 break;
             case 6:
                 message.timestamp = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                break;
+            case 7:
+                message.hdop = reader.double();
                 break;
             default:
                 reader.skipType(tag & 7);
@@ -2592,6 +2608,9 @@ $root.GNSS = (function() {
             if (error)
                 return "timestamp." + error;
         }
+        if (message.hdop != null && message.hasOwnProperty("hdop"))
+            if (typeof message.hdop !== "number")
+                return "hdop: number expected";
         return null;
     };
 
@@ -2622,6 +2641,8 @@ $root.GNSS = (function() {
                 throw TypeError(".GNSS.timestamp: object expected");
             message.timestamp = $root.google.protobuf.Timestamp.fromObject(object.timestamp);
         }
+        if (object.hdop != null)
+            message.hdop = Number(object.hdop);
         return message;
     };
 
@@ -2645,6 +2666,7 @@ $root.GNSS = (function() {
             object.amsl = 0;
             object.ato = 0;
             object.timestamp = null;
+            object.hdop = 0;
         }
         if (message.satellite != null && message.hasOwnProperty("satellite"))
             object.satellite = message.satellite;
@@ -2658,6 +2680,8 @@ $root.GNSS = (function() {
             object.ato = options.json && !isFinite(message.ato) ? String(message.ato) : message.ato;
         if (message.timestamp != null && message.hasOwnProperty("timestamp"))
             object.timestamp = $root.google.protobuf.Timestamp.toObject(message.timestamp, options);
+        if (message.hdop != null && message.hasOwnProperty("hdop"))
+            object.hdop = options.json && !isFinite(message.hdop) ? String(message.hdop) : message.hdop;
         return object;
     };
 
@@ -3039,6 +3063,9 @@ $root.Velocity = (function() {
      * @property {number} [z] z速度
      * desc: 载具在z方向上的速度，使用N-E-D (North-East-Down)，以米为单位
      * unit: m
+     * @property {number} [gspeed] 地速
+     * desc: 载具的地速，米/秒 精确到小数点后1位
+     * unit: m
      */
 
     /**
@@ -3086,6 +3113,16 @@ $root.Velocity = (function() {
     Velocity.prototype.z = 0;
 
     /**
+     * 地速
+     * desc: 载具的地速，米/秒 精确到小数点后1位
+     * unit: m
+     * @member {number}gspeed
+     * @memberof Velocity
+     * @instance
+     */
+    Velocity.prototype.gspeed = 0;
+
+    /**
      * Creates a new Velocity instance using the specified properties.
      * @function create
      * @memberof Velocity
@@ -3115,6 +3152,8 @@ $root.Velocity = (function() {
             writer.uint32(/* id 2, wireType 5 =*/21).float(message.y);
         if (message.z != null && message.hasOwnProperty("z"))
             writer.uint32(/* id 3, wireType 5 =*/29).float(message.z);
+        if (message.gspeed != null && message.hasOwnProperty("gspeed"))
+            writer.uint32(/* id 4, wireType 5 =*/37).float(message.gspeed);
         return writer;
     };
 
@@ -3157,6 +3196,9 @@ $root.Velocity = (function() {
                 break;
             case 3:
                 message.z = reader.float();
+                break;
+            case 4:
+                message.gspeed = reader.float();
                 break;
             default:
                 reader.skipType(tag & 7);
@@ -3202,6 +3244,9 @@ $root.Velocity = (function() {
         if (message.z != null && message.hasOwnProperty("z"))
             if (typeof message.z !== "number")
                 return "z: number expected";
+        if (message.gspeed != null && message.hasOwnProperty("gspeed"))
+            if (typeof message.gspeed !== "number")
+                return "gspeed: number expected";
         return null;
     };
 
@@ -3223,6 +3268,8 @@ $root.Velocity = (function() {
             message.y = Number(object.y);
         if (object.z != null)
             message.z = Number(object.z);
+        if (object.gspeed != null)
+            message.gspeed = Number(object.gspeed);
         return message;
     };
 
@@ -3243,6 +3290,7 @@ $root.Velocity = (function() {
             object.x = 0;
             object.y = 0;
             object.z = 0;
+            object.gspeed = 0;
         }
         if (message.x != null && message.hasOwnProperty("x"))
             object.x = options.json && !isFinite(message.x) ? String(message.x) : message.x;
@@ -3250,6 +3298,8 @@ $root.Velocity = (function() {
             object.y = options.json && !isFinite(message.y) ? String(message.y) : message.y;
         if (message.z != null && message.hasOwnProperty("z"))
             object.z = options.json && !isFinite(message.z) ? String(message.z) : message.z;
+        if (message.gspeed != null && message.hasOwnProperty("gspeed"))
+            object.gspeed = options.json && !isFinite(message.gspeed) ? String(message.gspeed) : message.gspeed;
         return object;
     };
 

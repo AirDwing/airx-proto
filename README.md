@@ -90,6 +90,7 @@ message GNSS {
     double amsl = 4;
     double ato = 5;
     google.protobuf.Timestamp timestamp = 6;
+    double hdop = 7;
 }
 
 message Signal {
@@ -117,6 +118,7 @@ message Velocity {
     float x = 1;
     float y = 2;
     float z = 3;
+    float gspeed = 4;
 }
 
 message Atmosphere {
